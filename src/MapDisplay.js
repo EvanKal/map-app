@@ -27,13 +27,52 @@ class MapDisplay extends Component {
     let populateInfoWindow = (marker, infowindow) => {
       // Check to make sure the infowindow is not already opened on this marker.
       if (infowindow.marker != marker) {
+        infowindow.setContent('');
         infowindow.marker = marker;
-        infowindow.setContent("<div>" + marker.title + "</div>");
-        infowindow.open(map, marker);
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener("closeclick", function() {
           infowindow.setMarker = null;
         });
+
+        // var streetViewService = new google.maps.StreetViewService();
+        let streetViewService = new google.maps.StreetViewService();
+        var radius = 50;
+        function getStreetView(data, status) {
+          if (status == google.maps.StreetViewStatus.OK) {
+            console.log("hi");
+            var nearStreetViewLocation = data.location.latLng;
+            var heading = google.maps.geometry.spherical.computeHeading(
+              nearStreetViewLocation,
+              marker.position
+            );
+            infowindow.setContent(
+              "<div>" + marker.title + '</div><div id="pano"></div>'
+            );
+            var panoramaOptions = {
+              position: nearStreetViewLocation,
+              pov: {
+                heading: heading,
+                pitch: 30
+              }
+            };
+            var panorama = new google.maps.StreetViewPanorama(
+              document.getElementById("test"),
+              panoramaOptions
+            );
+          } else {
+            infowindow.setContent(
+              "<div>" +
+                marker.title +
+                "</div>" +
+                "<div>No Street View Found</div>"
+            );
+          }
+        }
+        // Use streetview service to get the closest streetview image within
+// 50 meters of the markers position
+streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+// Open the infowindow on the correct marker.
+infowindow.open(map, marker);
       }
     };
 
@@ -46,7 +85,6 @@ class MapDisplay extends Component {
       });
 
       bounds.extend(elem.position);
-      console.log(marker);
 
       marker.setMap(map);
 

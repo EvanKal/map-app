@@ -10,12 +10,20 @@ class App extends Component {
 
   state = {
     places: [
-      {name:"Yasemi", position:{lat: 37.9748486, lng: 23.7267974}},
-      {name:"Couleur Locale", position:{lat: 37.9754321, lng: 23.7257031}},
-      {name:"Psyrra", position:{lat: 37.9779004, lng: 23.7253016}},
-      {name:"SPOLLATI", position:{lat: 37.9777605, lng: 23.7276444}},
-      {name:"Dióskouroi", position:{lat: 37.973493, lng: 23.725295}}
+      {name:"Yasemi", placeID: "ChIJRYyc_he9oRQR6_ZAlXl2sQo", position:{lat: 37.9748486, lng: 23.7267974}},
+      {name:"Couleur Locale", placeID: "ChIJYzvSVSK9oRQRTEIOJt4Ka48", position:{lat: 37.9754321, lng: 23.7257031}},
+      {name:"Psyrra", placeID: "ChIJ7e4WDiO9oRQRoIthg-iTr4g", position:{lat: 37.9779004, lng: 23.7253016}},
+      {name:"SPOLLATI", placeID: "ChIJvR6Zyzy9oRQR8uUVFK6LxnI", position:{lat: 37.97739900000001, lng: 23.72772}},
+      {name:"Dióskouroi", placeID: "ChIJFyp7ZRi9oRQRV2-Jz58hYJ4", position:{lat: 37.973493, lng: 23.725295}}
     ]
+
+    // places: [
+    //   {name:"Yasemi", placeID: "ChIJRYyc_he9oRQR6_ZAlXl2sQo", position:{lat: 37.9748486, lng: 23.7267974}},
+    //   {name:"Couleur Locale", placeID: "ChIJYzvSVSK9oRQRTEIOJt4Ka48", position:{lat: 37.9754321, lng: 23.7257031}},
+    //   {name:"Psyrra", placeID: "ChIJ7e4WDiO9oRQRoIthg-iTr4g", position:{lat: 37.9779004, lng: 23.7253016}},
+    //   {name:"SPOLLATI", placeID: "ChIJvR6Zyzy9oRQR8uUVFK6LxnI", position:{lat: 37.9777605, lng: 23.7276444}},
+    //   {name:"Dióskouroi", placeID: "ChIJFyp7ZRi9oRQRV2-Jz58hYJ4", position:{lat: 37.973493, lng: 23.725295}}
+    // ]
   }
   // <div id="map"></div>
   // <script>
@@ -30,24 +38,15 @@ class App extends Component {
   // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo&callback=initMap"
   // async defer></script>
 
-  // componentDidMount() {
-  //   GoogleMapsJavascriptAPI.getAll().then((res) => {
-  //     console.log(res)
-  //
-  //     res.body();
-  //   });
-  // }
+  componentDidMount() {
+    GoogleMapsJavascriptAPI.getPlace("ChIJRYyc_he9oRQR6_ZAlXl2sQo").then(res => res.json())
+    .then(data => console.log(data))
+    ;
+  }
 
-
-// initMap = () => {
-//   let google = window.google;
-//   let map;
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: -34.397, lng: 150.644},
-//     zoom: 8
-//   });
-//
-// }
+getInformation = () => {
+  let info
+}
 
 
   render() {
