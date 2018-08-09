@@ -4,5 +4,11 @@ const headers = {
   apiKey: "AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo"
 };
 
-export const getPlace = (place_id) =>
-  fetch(`${api}/place/details/json?placeid=${place_id}&key=AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo`);
+export const getAPI = () =>
+  fetch(`${api}/js?key=AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo&libraries=geometry,places`)
+  .then(res => res.text())
+  .catch((error) => {
+    console.log(error)
+  })
+
+  ;

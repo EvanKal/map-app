@@ -4,9 +4,12 @@ import Marker from "./Marker";
 class MapDisplay extends Component {
   state = {};
 
-  componentDidMount() {
+  componentDidUpdate(prevState,prevProps) {
+    if(prevProps.gotGoogle !== this.props.gotGoogle){
+      console.log("Updating...")
     this.initMap();
   }
+}
 
   initMap = () => {
     let google = window.google;
@@ -99,9 +102,10 @@ infowindow.open(map, marker);
   };
 
   render() {
+
     return (
       <div className="mapContainer">
-        <div id="map" />
+        <div id="map"></div>
       </div>
     );
   }
