@@ -49,6 +49,12 @@ width: 100%;
     width: 25%;
   }
 
+.App .marker-container {
+  /* margin: 0; */
+    height: 50px;
+    width: 50px;
+  }
+
 .App  #test {
   margin: auto;
     width: 200px;

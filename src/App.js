@@ -76,6 +76,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.gotGoogle);
     return (
       <div className="App">
         <ContentsList />
