@@ -43,6 +43,16 @@ width: 100%;
     width: 25%;
   }
 
+.App .list {
+  padding: 0;
+  list-style-type: none;
+  }
+
+.App .list p{
+  text-align: left;
+  padding-left: 10px;
+  }
+
 .App .extra-info {
   /* margin: 0; */
     height: 100%;

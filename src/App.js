@@ -4,10 +4,12 @@ import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
 import MapDisplay from "./MapDisplay";
 import ContentsList from "./ContentsList";
 import ExtraInfo from "./ExtraInfo";
+import escapeRegExp from 'escape-string-regexp'
 import "./App.css";
 
 class App extends Component {
   state = {
+    queryInApp: "",
     gotGoogle: false,
     places: [
       {
@@ -75,11 +77,30 @@ class App extends Component {
     document.querySelector("body").appendChild(scriptTag);
   };
 
+  updateQueryInApp = (query) => {
+    this.setState({ queryInApp: query })
+  }
+
+  placesRendered = (query) => {
+    let placesArray = this.state.places;
+    if(query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+  placesArray = this.state.places.filter((place) => match.test(place.name))
+  return placesArray;
+    } else {
+      return this.state.places;
+    }
+  }
+
   render() {
+    const {queryInApp} = this.state
+
+console.log("queryInApp", this.state.queryInApp)
+
     return (
       <div className="App">
-        <ContentsList />
-        <MapDisplay gotGoogle={this.state.gotGoogle} markersToDisplay={this.state.places} />
+        <ContentsList markersInList={this.placesRendered(queryInApp)} updateQueryInApp={this.updateQueryInApp}/>
+        <MapDisplay gotGoogle={this.state.gotGoogle} markersToDisplay={this.placesRendered(queryInApp)} />
         <ExtraInfo />
       </div>
     );
