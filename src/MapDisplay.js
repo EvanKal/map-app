@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Marker from "./Marker";
 
 class MapDisplay extends Component {
   state = {
@@ -8,9 +7,9 @@ class MapDisplay extends Component {
   };
 
 
-  componentDidUpdate(prevState, prevProps) {
-    if(prevProps.gotGoogle !== this.props.gotGoogle ){
-      console.log("Updating...")
+  componentDidUpdate(prevProps) {
+    if(this.props.google !== prevProps.google){
+    console.log("Rendering Map...")
     this.initMap();
 }
 }
@@ -22,15 +21,7 @@ class MapDisplay extends Component {
 // }
 
   initMap = () => {
-    let google = window.google;
-    let map;
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 37.975543, lng: 23.734851 },
-      zoom: 8
-    });
-    if(!this.state.google && !this.state.map) {
-    this.setState({google: google, map: map});
-  }
+     let newMap = this.props.map;
 };
 
 //   initMarkers = (google, map) => {
@@ -114,7 +105,8 @@ class MapDisplay extends Component {
 
   render() {
 
-console.log("yas",this.state.google)
+console.log("propgoogle", this.props.google)
+
     return (
       <div className="mapContainer">
         <div id="map"></div>

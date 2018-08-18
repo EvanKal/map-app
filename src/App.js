@@ -4,6 +4,7 @@ import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
 import MapDisplay from "./MapDisplay";
 import ContentsList from "./ContentsList";
 import ExtraInfo from "./ExtraInfo";
+import Marker from "./Marker";
 import escapeRegExp from 'escape-string-regexp'
 import "./App.css";
 
@@ -11,6 +12,8 @@ class App extends Component {
   state = {
     queryInApp: "",
     gotGoogle: false,
+    google: "",
+    map: "",
     places: [
       {
         name: "Yasemi",
@@ -66,8 +69,15 @@ class App extends Component {
         this.createScriptTag(res);
       })
       .then(() => {
-        this.setState({gotGoogle: true});
+        this.setState(() => {
+          let google = window.google
+          let map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 37.975543, lng: 23.734851 },
+            zoom: 8
+          })
+          return {google: google, map: map, gotGoogle: true};
       });
+    });
   }
 
   createScriptTag = (content) => {
@@ -99,9 +109,23 @@ console.log("queryInApp", this.state.queryInApp)
 
     return (
       <div className="App">
-        <ContentsList markersInList={this.placesRendered(queryInApp)} updateQueryInApp={this.updateQueryInApp}/>
-        <MapDisplay gotGoogle={this.state.gotGoogle} markersToDisplay={this.placesRendered(queryInApp)} />
+
+        <ContentsList
+        markersInList={this.placesRendered(queryInApp)}
+        updateQueryInApp={this.updateQueryInApp} />
+
+        <MapDisplay
+        gotGoogle={this.state.gotGoogle}
+        google={this.state.google}
+        map={this.state.map} />
+
+        <Marker
+        markersToDisplay={this.placesRendered(queryInApp)}
+        google={this.state.google}
+        map={this.state.map} />
+
         <ExtraInfo />
+
       </div>
     );
   }
