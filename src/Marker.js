@@ -1,12 +1,26 @@
 import React, { Component } from "react";
 
 class Marker extends Component {
-  state = {};
+  state = {
 
-  componentDidUpdate(prevProps) {
-    if (this.props.google) {
+    setOfCurrentMarkers: ""
+
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    //this condition handles the initial rendering of the markers
+    if (this.props.google != prevProps.google) {
       this.initMarkers(this.props.google, this.props.map);
     }
+    //this condition handles the rendering of the markers that will follow
+    if(this.props.google  && this.props.markersToDisplay !== prevProps.markersToDisplay
+    ) {
+  this.clearMarkers(prevState.setOfCurrentMarkers);
+  this.initMarkers(this.props.google, this.props.map);
+
+}
+
+
   }
 
   initMarkers = (google, map) => {
@@ -90,18 +104,30 @@ class Marker extends Component {
       });
 
       markersArray.push(marker);
-      console.log(markersArray);
     });
 
     //After having finished displaying the markers
     map.fitBounds(bounds);
+    console.log("markersArray", markersArray)
+    this.saveMarkers(markersArray);
   }
   else if (this.props.markersToDisplay.length==0) {
 
   }
   };
 
+  saveMarkers = (array) => {
+    this.setState({setOfCurrentMarkers: array})
+}
+
+clearMarkers = (array) => {
+  for (var i = 0; i < array.length; i++) {
+          array[i].setMap(null);
+        }
+}
+
   render() {
+    console.log(this.state.setOfCurrentMarkers);
     return (
       <div className="marker-container"></div>
     )
