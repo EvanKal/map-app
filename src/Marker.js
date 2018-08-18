@@ -25,6 +25,10 @@ class Marker extends Component {
 
   initMarkers = (google, map) => {
     let markersArray = [];
+
+//With this condition the map doesn't change it's center to default if there are no
+// markers to be displayed.
+
     if(this.props.markersToDisplay.length>0) {
     //Instances that are going to be needed in the lower class functions
     let bounds = new google.maps.LatLngBounds();
@@ -112,7 +116,8 @@ class Marker extends Component {
     this.saveMarkers(markersArray);
   }
   else if (this.props.markersToDisplay.length==0) {
-
+   map.setCenter({ lat: 37.975543, lng: 23.734851 })
+   map.setZoom(10)
   }
   };
 
