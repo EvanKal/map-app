@@ -26,13 +26,12 @@ class Marker extends Component {
   initMarkers = (google, map) => {
     let markersArray = [];
 
-//With this condition the map doesn't change it's center to default if there are no
-// markers to be displayed.
-
     if(this.props.markersToDisplay.length>0) {
     //Instances that are going to be needed in the lower class functions
     let bounds = new google.maps.LatLngBounds();
     let largeInfowindow = new google.maps.InfoWindow();
+
+    let requestVenue = this.props.requestPlaceDetails;
 
     //Creates the info window
     let populateInfoWindow = (marker, infowindow) => {
@@ -104,6 +103,7 @@ class Marker extends Component {
 
       //Listeners for each marker
       marker.addListener("click", function() {
+        requestVenue(elem.venueID);
         populateInfoWindow(marker, largeInfowindow);
       });
 

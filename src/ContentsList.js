@@ -26,7 +26,7 @@ render () {
 
   return(
     <div className="contents-list">
-    <h2>Contents</h2>
+    <h1 className="app-title">Contents</h1>
     <hr/>
     <input
               className="search-places"

@@ -16,28 +16,33 @@ class App extends Component {
     map: "",
     places: [
       {
-        name: "Yasemi",
+        name: "Yiasemi",
         placeID: "ChIJRYyc_he9oRQR6_ZAlXl2sQo",
+        venueID: "4c9767007605199c9799c8a3",
         position: { lat: 37.9748486, lng: 23.7267974 }
       },
       {
         name: "Couleur Locale",
         placeID: "ChIJYzvSVSK9oRQRTEIOJt4Ka48",
+        venueID: "53df3977498e478b05bb4452",
         position: { lat: 37.9754321, lng: 23.7257031 }
       },
       {
         name: "Psyrra",
         placeID: "ChIJ7e4WDiO9oRQRoIthg-iTr4g",
+        venueID: "4d41c506255d8cfa88c87305",
         position: { lat: 37.9779004, lng: 23.7253016 }
       },
       {
         name: "SPOLLATI",
         placeID: "ChIJvR6Zyzy9oRQR8uUVFK6LxnI",
-        position: { lat: 37.97739900000001, lng: 23.72772 }
+        venueID: "51fac8e4498e8efa6e342d0d",
+        position: { lat: 37.9774696, lng: 23.7277225}
       },
       {
         name: "Dióskouroi",
         placeID: "ChIJFyp7ZRi9oRQRV2-Jz58hYJ4",
+        venueID: "4b7c1594f964a520f47b2fe3",
         position: { lat: 37.973493, lng: 23.725295 }
       }
     ]
@@ -102,6 +107,55 @@ class App extends Component {
     }
   }
 
+  requestPlaceDetails = (id) => {
+    GoogleMapsJavascriptAPI.fourSquareAPI(id)
+    .then((res) => {
+      console.log("response", res);
+      this.fillExtraInfo(res);
+    })
+  }
+
+  fillExtraInfo = (place) => {
+    let createHoursTable = (array) => {
+      let hoursContainer = document.querySelector(".working-hours");
+      hoursContainer.innerHTML = "";
+      let fragment = document.createDocumentFragment();
+
+      array.forEach((elem) => {
+        let row = document.createElement("tr");
+
+        const day = document.createElement('td');
+        day.innerHTML = elem.days;
+        row.appendChild(day);
+
+        const time = document.createElement('td');
+        let timeText = "";
+        elem.open.forEach((hour) => {
+          timeText = timeText + hour.renderedTime;
+        })
+        time.innerHTML = timeText;
+        row.appendChild(time);
+
+        fragment.appendChild(row);
+
+      })
+
+      console.log(fragment);
+      hoursContainer.appendChild(fragment);
+
+    }
+    // let placename = ;
+    document.querySelector(".place-name").innerHTML = place.name;
+    document.querySelector(".type").innerHTML = place.categories[0].name;
+    document.querySelector(".menu").innerHTML = place.attributes.groups[5].summary;
+    document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
+    document.querySelector(".likes").innerHTML = `Likes: ${place.likes.count}`;
+    document.querySelector(".listed").innerHTML = `Listed: ${place.listed.count} times`;
+    createHoursTable(place.popular.timeframes);
+
+  }
+
+
   render() {
     const {queryInApp} = this.state
 
@@ -121,6 +175,7 @@ console.log("queryInApp", this.state.queryInApp)
 
         <Marker
         markersToDisplay={this.placesRendered(queryInApp)}
+        requestPlaceDetails={this.requestPlaceDetails}
         google={this.state.google}
         map={this.state.map} />
 

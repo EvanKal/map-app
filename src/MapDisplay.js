@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
+
 
 class MapDisplay extends Component {
   state = {
@@ -6,6 +8,13 @@ class MapDisplay extends Component {
     map: ""
   };
 
+// to be deleted
+// componentDidMount() {
+//   GoogleMapsJavascriptAPI.fourSquareAPI("4c9767007605199c9799c8a3")
+//   .then((res) => {
+//     console.log("response", res);
+//   })
+// }
 
   componentDidUpdate(prevProps) {
     if(this.props.google !== prevProps.google){
