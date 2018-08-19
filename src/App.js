@@ -116,6 +116,7 @@ class App extends Component {
   }
 
   fillExtraInfo = (place) => {
+    
     let createHoursTable = (array) => {
       let hoursContainer = document.querySelector(".working-hours");
       hoursContainer.innerHTML = "";
