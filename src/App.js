@@ -85,6 +85,9 @@ class App extends Component {
     });
   }
 
+
+
+
   createScriptTag = (content) => {
     let scriptTag = document.createElement("script");
     scriptTag.setAttribute("type", "text/javascript");
@@ -116,7 +119,7 @@ class App extends Component {
   }
 
   fillExtraInfo = (place) => {
-    
+
     let createHoursTable = (array) => {
       let hoursContainer = document.querySelector(".working-hours");
       hoursContainer.innerHTML = "";

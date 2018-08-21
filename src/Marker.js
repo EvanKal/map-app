@@ -104,7 +104,7 @@ class Marker extends Component {
       //Listeners for each marker
       marker.addListener("click", function() {
         // UNCOMMENT THIS
-        // requestVenue(elem.venueID);
+        requestVenue(elem.venueID);
         populateInfoWindow(marker, largeInfowindow);
       });
 

@@ -18,7 +18,24 @@ const isLocalhost = Boolean(
     )
 );
 
+// export default function regSW(){
+// if (!navigator.serviceWorker) return;
+// if (navigator.serviceWorker) {
+// navigator.serviceWorker.register('/registerServiceWorker.js')
+// .then(function() { console.log("Service Worker Registered!"); });
+// };
+// }
+
+
 export default function register() {
+//   console.log("hey");
+//   if (!navigator.serviceWorker) return;
+// if (navigator.serviceWorker) {
+// navigator.serviceWorker.register('/sw.js')
+// .then(function() { console.log("Service Worker Registered!"); });
+// };
+// }
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location);
