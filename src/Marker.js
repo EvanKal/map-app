@@ -12,7 +12,7 @@ class Marker extends Component {
     if (this.props.google != prevProps.google) {
       this.initMarkers(this.props.google, this.props.map);
     }
-    //this condition handles the rendering of the markers that will follow
+    //this condition handles the following marker renderings
     if(this.props.google  && this.props.markersToDisplay !== prevProps.markersToDisplay
     ) {
   this.clearMarkers(prevState.setOfCurrentMarkers);
@@ -41,6 +41,7 @@ class Marker extends Component {
         infowindow.marker = marker;
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener("closeclick", function() {
+          resetMarkers(markersArray);
           infowindow.setMarker = null;
         });
 
@@ -102,11 +103,34 @@ class Marker extends Component {
       }
     };
 
+    let resetMarkers = (array) => {
+      for (var i = 0; i < array.length; i++) {
+              array[i].setAnimation(null);
+              array[i].setIcon({url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"})
+      }
+    }
+
+  let toggleBounce = (array, marker) => {
+
+    resetMarkers(array);
+
+    marker.setIcon({url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"})
+
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+
     //Loop through the places props object to display the respective markers
     this.props.markersToDisplay.map(elem => {
       let marker;
       marker = new google.maps.Marker({
         position: elem.position,
+        animation: google.maps.Animation.DROP,
+        icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
         title: elem.name
       });
 
@@ -114,14 +138,24 @@ class Marker extends Component {
 
       marker.setMap(map);
 
-      //Listeners for each marker
-      marker.addListener("click", function() {
-      populateInfoWindow(marker, largeInfowindow);
-      requestVenue(elem.venueID);
-      });
+      // //Listeners for each marker
+      // marker.addListener("click", function() {
+      //   toggleBounce(marker)
+      //   populateInfoWindow(marker, largeInfowindow);
+      //   // requestVenue(elem.venueID);
+      // });
 
       markersArray.push(marker);
     });
+
+    //Listeners for each marker
+    markersArray.forEach((marker) => {
+      marker.addListener("click", function() {
+        toggleBounce(markersArray, marker)
+        populateInfoWindow(marker, largeInfowindow);
+        // requestVenue(elem.venueID);
+      });
+    })
 
     //After having finished displaying the markers
     map.fitBounds(bounds);
