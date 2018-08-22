@@ -148,15 +148,63 @@ class App extends Component {
       hoursContainer.appendChild(fragment);
 
     }
-    // let placename = ;
+
+    let displayBestImage = (image, name) => {
+        let imageElement = document.querySelector(".place-image");
+        let imageUrl = `${image.prefix}original${image.suffix}`;
+        imageElement.setAttribute("src", imageUrl);
+        imageElement.setAttribute("alt", `Image of ${name}`);
+      }
+
+    let displayAddress = (address) => {
+      let addressContainer = document.querySelector(".info-window-address");
+
+      if (document.body.contains(addressContainer)){
+      let addressText = "";
+
+      address.formattedAddress.forEach((elem) => {
+        addressText = `${addressText} ${elem}`
+      })
+
+      addressContainer.innerHTML = addressText;
+    }
+    }
+
+
+//Set the name
     document.querySelector(".place-name").innerHTML = place.name;
+
+//Set the image
+    if(place.hasOwnProperty("bestPhoto")) {
+    displayBestImage(place.bestPhoto, place.name);
+    } else {
+      document.querySelector(".best-image-container").innerHTML = "Image not available";
+    }
+
+//Set the type of the place
     document.querySelector(".type").innerHTML = place.categories[0].name;
-    document.querySelector(".menu").innerHTML = place.attributes.groups[5].summary;
+
+//Set the menu
+    if(place.attributes.groups.length >= 5)
+    {
+      document.querySelector(".menu").innerHTML = place.attributes.groups[5].summary;
+    }
+
+//Set the metrics
     document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
     document.querySelector(".likes").innerHTML = `Likes: ${place.likes.count}`;
     document.querySelector(".listed").innerHTML = `Listed: ${place.listed.count} times`;
+
+//Set the timetable
     createHoursTable(place.popular.timeframes);
 
+//Set address in Info InfoWindow
+
+  if(place.hasOwnProperty("location")) {
+    displayAddress(place.location);
+  } else {
+    let addressContainer = document.querySelector(".info-window-address").innerHTML = "No address available"
+  }
   }
 
 

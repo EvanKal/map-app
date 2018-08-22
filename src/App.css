@@ -67,8 +67,17 @@ width: 100%;
   width: 100%;
 }
 
-.App .extra-info .streetViewContainer{
+.App .extra-info .best-image-container{
+  padding: 5px;
   width: 100%;
+  height: 200px;
+}
+
+.App .extra-info .best-image-container img{
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+
 }
 
 .App .extra-info .type{
@@ -98,8 +107,45 @@ width: 100%;
 }
 
 
-.App  #test {
+.App  .info-window-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 150px;
+  }
+
+.App  .name-address-container {
+  display: flex;
+  flex-wrap: wrap;
+  order: 2;
+  width: 50%;
+  height: 150px;
+  }
+
+.App  .info-window-marker-title {
+    width: 100%;
+    height: 20%;
+  }
+
+.App  .info-window-address {
+    width: 100%;
+    height: 80%;
+  }
+
+.App  .streetview-container {
+  order: 1;
   margin: auto;
-    width: 200px;
-    height: 200px;
+    width: 50%;
+    height: auto;
+  }
+
+.App  #pano {
+  margin: auto;
+    width: 150px;
+    height: 150px;
+  }
+.App  #pano .gm-style{
+  margin: auto;
+    width: 150px;
+    height: 150px;
   }

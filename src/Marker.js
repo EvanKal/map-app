@@ -55,7 +55,15 @@ class Marker extends Component {
               marker.position
             );
             infowindow.setContent(
-              "<div>" + marker.title + '</div><div id="pano"></div>'
+              `<div class="info-window-container">
+              <div class="name-address-container">
+              <div class="info-window-marker-title">${marker.title}</div>
+              <div class="info-window-address">Address</div>
+              </div>
+              <div class="streetview-container">
+              <div id="pano"></div>
+              </div>
+              </div>`
             );
             var panoramaOptions = {
               position: nearStreetViewLocation,
@@ -65,15 +73,20 @@ class Marker extends Component {
               }
             };
             var panorama = new google.maps.StreetViewPanorama(
-              document.getElementById("test"),
+              document.getElementById("pano"),
               panoramaOptions
             );
           } else {
             infowindow.setContent(
-              "<div>" +
-                marker.title +
-                "</div>" +
-                "<div>No Street View Found</div>"
+              `<div class="info-window-container">
+              <div class="name-address-container">
+              <div class="info-window-marker-title">${marker.title}</div>
+              <div class="info-window-address">Address</div>
+              </div>
+              <div class="streetview-container">
+              <div>No Street View found</div>
+              </div>
+              </div>`
             );
           }
         }
@@ -103,9 +116,8 @@ class Marker extends Component {
 
       //Listeners for each marker
       marker.addListener("click", function() {
-        // UNCOMMENT THIS
-        requestVenue(elem.venueID);
-        populateInfoWindow(marker, largeInfowindow);
+      populateInfoWindow(marker, largeInfowindow);
+      requestVenue(elem.venueID);
       });
 
       markersArray.push(marker);

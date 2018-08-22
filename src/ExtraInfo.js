@@ -9,9 +9,8 @@ class ExtraInfo extends Component {
     return (
       <div className="extra-info">
         <h2 className="place-name">Place Name</h2>
-        <div className="streetViewContainer">
-          <p>Street View</p>
-          <div id="test" />
+        <div className="best-image-container">
+        <img className="place-image"/>
         </div>
         <div className="type">Category</div>
         <div className="menu">Menu/Serves</div>
