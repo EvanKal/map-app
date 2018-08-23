@@ -114,7 +114,6 @@ class MapDisplay extends Component {
 
   render() {
 
-console.log("propgoogle", this.props.google)
 
     return (
       <div className="mapContainer">

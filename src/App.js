@@ -85,9 +85,6 @@ class App extends Component {
     });
   }
 
-
-
-
   createScriptTag = (content) => {
     let scriptTag = document.createElement("script");
     scriptTag.setAttribute("type", "text/javascript");
@@ -100,10 +97,10 @@ class App extends Component {
   }
 
   placesRendered = (query) => {
-    let placesArray = this.state.places;
+    let placesArray = [];
     if(query) {
       const match = new RegExp(escapeRegExp(query), 'i')
-  placesArray = this.state.places.filter((place) => match.test(place.name))
+  placesArray = this.state.places.filter((place) => match.test(place.name));
   return placesArray;
     } else {
       return this.state.places;

@@ -10,11 +10,11 @@ class Marker extends Component {
   componentDidUpdate(prevProps, prevState) {
     //this condition handles the initial rendering of the markers
     if (this.props.google != prevProps.google) {
+      console.log("Initial marker rendering")
       this.initMarkers(this.props.google, this.props.map);
     }
     //this condition handles the following marker renderings
-    if(this.props.google  && this.props.markersToDisplay !== prevProps.markersToDisplay
-    ) {
+  if(JSON.stringify(this.props.markersToDisplay) != JSON.stringify(prevProps.markersToDisplay)) {
   this.clearMarkers(prevState.setOfCurrentMarkers);
   this.initMarkers(this.props.google, this.props.map);
 
@@ -25,6 +25,7 @@ class Marker extends Component {
 
   initMarkers = (google, map) => {
     let markersArray = [];
+    let windowsArray = [];
 
     if(this.props.markersToDisplay.length>0) {
     //Instances that are going to be needed in the lower class functions
@@ -36,14 +37,25 @@ class Marker extends Component {
     //Creates the info window
     let populateInfoWindow = (marker, infowindow) => {
       // Check to make sure the infowindow is not already opened on this marker.
-      if (infowindow.marker != marker) {
+      // windowsArray.forEach((infowindow) => {
+      //   infowindow.map = null;
+      // })
+      console.log(marker);
+
+      if (infowindow.marker !== marker) {
+        console.log(infowindow);
         infowindow.setContent("");
+        infowindow.marker = "";
         infowindow.marker = marker;
+
         // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener("closeclick", function() {
-          resetMarkers(markersArray);
-          infowindow.setMarker = null;
-        });
+        if (infowindow.__e3_.closeclick != {}){
+          infowindow.__e3_.closeclick = {};
+          infowindow.addListener("closeclick", function() {
+          resetMarkers([marker]);
+          infowindow.setContent("");
+          infowindow.marker = null;
+        });}
 
         // var streetViewService = new google.maps.StreetViewService();
         let streetViewService = new google.maps.StreetViewService();
@@ -99,28 +111,30 @@ class Marker extends Component {
           getStreetView
         );
         // Open the infowindow on the correct marker.
+        windowsArray.push(infowindow);
+        console.log("windowsArray", windowsArray);
         infowindow.open(map, marker);
       }
     };
 
     let resetMarkers = (array) => {
       for (var i = 0; i < array.length; i++) {
+
+        if(array[i].animation != null) {
               array[i].setAnimation(null);
-              array[i].setIcon({url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"})
+            }
+
+        if(array[i].icon.url != "http://maps.google.com/mapfiles/ms/icons/red-dot.png"){
+          array[i].setIcon({url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"});
+            }
+
+            console.log("reset", array[i])
       }
     }
 
-  let toggleBounce = (array, marker) => {
-
-    resetMarkers(array);
-
+  let toggleBounce = (marker) => {
     marker.setIcon({url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"})
-
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
     marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
 }
 
 
@@ -151,15 +165,16 @@ class Marker extends Component {
     //Listeners for each marker
     markersArray.forEach((marker) => {
       marker.addListener("click", function() {
-        toggleBounce(markersArray, marker)
+        resetMarkers(markersArray);
+        toggleBounce(marker)
         populateInfoWindow(marker, largeInfowindow);
         // requestVenue(elem.venueID);
-      });
+
+    });
     })
 
     //After having finished displaying the markers
     map.fitBounds(bounds);
-    console.log("markersArray", markersArray)
     this.saveMarkers(markersArray);
   }
   else if (this.props.markersToDisplay.length==0) {
@@ -179,7 +194,11 @@ clearMarkers = (array) => {
 }
 
   render() {
-    console.log(this.state.setOfCurrentMarkers);
+
+
+        // let canvas = document.querySelector("canvas");
+        // console.log("canvas", canvas);
+
     return (
       <div className="marker-container"></div>
     )

@@ -22,7 +22,6 @@ clearQuery = () => {
 render () {
   const {query} = this.state;
   const {markersInList,updateQueryInApp} = this.props;
-  console.log(markersInList);
 
   return(
     <div className="contents-list">
