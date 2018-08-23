@@ -31073,3 +31073,41 @@ console.log(a7.ARRAY_BUFFER)
 void a7.clear(a7.getParameter(a7.COLOR_BUFFER_BIT))
 void a7.clear(a7.getParameter(a7.DEPTH_BUFFER_BIT))
 void a7.clear(a7.STENCIL_BUFFER_BIT)
+
+let getCanvas = () => {
+  let canvas = "";
+  let gl = "";
+  let gl1 = "";
+  let gl2 = "";
+
+    canvas = document.querySelector("canvas");
+    if(canvas){
+
+      gl = canvas.getContext('webgl')
+      gl1 = JSON.stringify(gl);
+
+      console.log(gl)
+      console.log("1", gl1)
+    void  gl.clear(gl.COLOR_BUFFER_BIT)
+    void  gl.clear(gl.DEPTH_BUFFER_BIT)
+    void  gl.clear(gl.STENCIL_BUFFER_BIT)
+
+    gl.clear(gl.COLOR_BUFFER_BIT)
+    gl.clear(gl.DEPTH_BUFFER_BIT)
+    gl.clear(gl.STENCIL_BUFFER_BIT)
+
+    gl = canvas.getContext('webgl')
+    gl2 = JSON.stringify(gl);
+
+    console.log("2", gl2)
+
+if (gl1.match(gl2)) {
+  console.log(true)
+} else {
+  console.log(false)
+}
+      console.log("canvas", canvas)
+    }
+
+
+}

@@ -40,7 +40,6 @@ class Marker extends Component {
       // windowsArray.forEach((infowindow) => {
       //   infowindow.map = null;
       // })
-      console.log(marker);
 
       if (infowindow.marker !== marker) {
         console.log(infowindow);
@@ -138,6 +137,8 @@ class Marker extends Component {
 }
 
 
+
+
     //Loop through the places props object to display the respective markers
     this.props.markersToDisplay.map(elem => {
       let marker;
@@ -168,6 +169,7 @@ class Marker extends Component {
         resetMarkers(markersArray);
         toggleBounce(marker)
         populateInfoWindow(marker, largeInfowindow);
+
         // requestVenue(elem.venueID);
 
     });
