@@ -5,6 +5,8 @@ class BurgerMenuIcon extends Component {
 toggleClasses = () => {
 
   document.querySelector(".menu-icon-container").classList.toggle("x-icon");
+  document.querySelector(".contents-list").classList.toggle("move");
+
 
 }
 

@@ -31,44 +31,25 @@ width: 100%;
   to { transform: rotate(360deg); }
 }
 
-.App .mapContainer {
-  /* margin: 0px; */
-    height: 100%;
-    width: 50%;
-  }
-
-.App .contents-list {
-  /* margin: 0px; */
-    height: 100%;
-    width: 25%;
-  }
-
-.App .list {
-  padding: 0;
-  list-style-type: none;
-  }
-
-.App .list p{
-  text-align: left;
-  padding-left: 10px;
-  }
-
 /* ---------------------Menu Icon-------------------- */
 .App .menu-icon-container {
   position: absolute;
   display: block;
   top: 10px;
   left: 10px;
+  cursor: pointer;
+  z-index: 2;
+
 
 
 }
 
 #menuToggle
 {
-  z-index: 1;
 
   -webkit-user-select: none;
   user-select: none;
+  transition: transform 0.5s ease;
 }
 
 #menuToggle span
@@ -82,7 +63,7 @@ width: 100%;
   background: #cdcdcd;
   border-radius: 3px;
 
-  z-index: 1;
+  /* z-index: 2; */
 
   transform-origin: 4px 0px;
 
@@ -102,6 +83,11 @@ width: 100%;
 }
 
 /* Transform the shape to an X */
+
+.x-icon #menuToggle
+{
+  transform: translate(160px);
+}
 
 .x-icon #menuToggle  span
 {
@@ -126,12 +112,55 @@ width: 100%;
   transform: rotate(45deg) translate(0, -1px);
 }
 
+/* ---------------------Map div-------------------- */
+
+.App .mapContainer {
+  /* margin: 0px; */
+    height: 100%;
+    width: 70%;
+  }
+
+/* ---------------------Contents div-------------------- */
+
+.App .contents-list {
+  /* margin: 0px; */
+    position: absolute;
+    z-index: 1;
+    left: -200px;
+    height: 100%;
+    width: 200px;
+    background: white;
+    transition: transform 0.5s ease;
+    box-sizing: border-box;
+
+  }
+
+  .App .contents-list h1{
+    padding-top: 10px;
+}
+
+.App .move{
+transform: translate(200px);
+  }
+
+.App .list {
+  padding: 0;
+  list-style-type: none;
+  }
+
+.App .list p{
+  text-align: left;
+  padding-left: 10px;
+  }
+
+
+
 
 /* ---------------------ExtraInfo div-------------------- */
 .App .extra-info {
   /* margin: 0; */
     height: 100%;
-    width: 25%;
+    width: 30%;
     display: flex;
     flex-wrap: wrap;
   }
