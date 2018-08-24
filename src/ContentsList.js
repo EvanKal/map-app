@@ -18,6 +18,14 @@ clearQuery = () => {
   this.setState({ query: "" });
 };
 
+clickHandler = (event) => {
+
+  let text = event.target.innerHTML
+  let markerToActivate = document.body.querySelector(`[title="${text}"]`);
+  markerToActivate.dispatchEvent(new Event("click"));
+
+}
+
 
 render () {
   const {query} = this.state;
@@ -43,7 +51,7 @@ render () {
 
     markersInList.map((elem) => {
       return (
-        <li key={elem.name}>
+        <li key={elem.name} onClick={(event)=> this.clickHandler(event)} style={{cursor: "pointer"}}>
         <p>{elem.name}</p>
         </li>
       )

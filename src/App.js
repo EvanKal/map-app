@@ -5,6 +5,7 @@ import MapDisplay from "./MapDisplay";
 import ContentsList from "./ContentsList";
 import ExtraInfo from "./ExtraInfo";
 import Marker from "./Marker";
+import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from 'escape-string-regexp'
 import "./App.css";
 
@@ -69,6 +70,9 @@ class App extends Component {
   // async defer></script>
 
   componentDidMount() {
+    // document.addEventListener("click", (event) => {
+    //   console.log(event.target) ;
+    // })
     GoogleMapsJavascriptAPI.getAPI()
       .then(res => {
         this.createScriptTag(res);
@@ -212,6 +216,8 @@ console.log("queryInApp", this.state.queryInApp)
 
     return (
       <div className="App">
+
+        <BurgerMenuIcon />
 
         <ContentsList
         markersInList={this.placesRendered(queryInApp)}

@@ -120,7 +120,7 @@ class Marker extends Component {
       for (var i = 0; i < array.length; i++) {
 
         if(array[i].animation != null) {
-              array[i].setAnimation(null);
+              array[i].setAnimation(-1);
             }
 
         if(array[i].icon.url != "http://maps.google.com/mapfiles/ms/icons/red-dot.png"){
