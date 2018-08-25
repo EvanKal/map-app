@@ -160,20 +160,20 @@ class Marker extends Component {
       //   // requestVenue(elem.venueID);
       // });
 
+      //Listeners for each marker
+        marker.addListener("click", function() {
+          resetMarkers(markersArray);
+          toggleBounce(marker)
+          populateInfoWindow(marker, largeInfowindow);
+
+          requestVenue(elem.venueID);
+
+      });
+
+
       markersArray.push(marker);
     });
 
-    //Listeners for each marker
-    markersArray.forEach((marker) => {
-      marker.addListener("click", function() {
-        resetMarkers(markersArray);
-        toggleBounce(marker)
-        populateInfoWindow(marker, largeInfowindow);
-
-        // requestVenue(elem.venueID);
-
-    });
-    })
 
     //After having finished displaying the markers
     map.fitBounds(bounds);

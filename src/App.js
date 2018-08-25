@@ -120,8 +120,20 @@ class App extends Component {
     GoogleMapsJavascriptAPI.fourSquareAPI(id)
     .then((res) => {
       console.log("response", res);
+      document.querySelector(".extra-info-overlay").classList.add("hide-overlay");
       this.fillExtraInfo(res);
     })
+    .catch((error)=> {
+      console.log(error);
+      this.extraInfoOverlay();
+    })
+  }
+
+  extraInfoOverlay = () => {
+    let extraInfoOverlay = document.querySelector(".extra-info-overlay");
+    extraInfoOverlay.classList.remove("hide-overlay");
+    extraInfoOverlay.querySelector(".overlay-text").innerHTML = `Network Error! Nothing to display...`;
+
   }
 
   fillExtraInfo = (place) => {
