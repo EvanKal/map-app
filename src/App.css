@@ -131,7 +131,7 @@ font-family: 'Quicksand', sans-serif;
     position: absolute;
     z-index: 1;
     left: -200px;
-    height: 100%;
+    height: 100vh;
     width: 200px;
     background: #daebe8;
     transition: transform 0.5s ease;
@@ -156,19 +156,40 @@ font-family: 'Quicksand', sans-serif;
 
   .App .contents-list h1{
     width: 100%;
-    height: 10%;
-    padding-top: 10px;
+    height: 15%;
+    margin: 0;
+    padding-top: 25px;
+    box-sizing: border-box;
+    text-align: left;
 }
 
 .App .move{
 transform: translate(200px);
   }
 
-.App .list {
+.App .markers-in-list {
   width: 100%;
   height: 80%;
+  }
+
+.App .list {
   padding: 0;
   list-style-type: none;
+  }
+
+.App .list p {
+  margin: 0;
+  }
+
+.App .list li{
+  padding: 10px 0 10px 0;
+  }
+
+.App .list li:hover {
+  /* width: 100%;
+  height: 80%;*/
+  border-top: 1px solid #667292;
+  border-bottom: 1px solid #667292;
   }
 
 .App .list p{
