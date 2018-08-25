@@ -132,7 +132,7 @@ class Marker extends Component {
     }
 
   let toggleBounce = (marker) => {
-    marker.setIcon({url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"})
+    marker.setIcon({url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"})
     marker.setAnimation(google.maps.Animation.BOUNCE);
 }
 

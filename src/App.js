@@ -82,7 +82,12 @@ class App extends Component {
           let google = window.google
           let map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 37.975543, lng: 23.734851 },
-            zoom: 8
+            zoom: 8,
+            mapTypeControlOptions: {
+              mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
+                      'styled_map']
+            }
+
           })
           return {google: google, map: map, gotGoogle: true};
       });

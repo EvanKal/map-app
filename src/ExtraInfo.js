@@ -8,6 +8,7 @@ class ExtraInfo extends Component {
   render() {
     return (
       <div className="extra-info">
+        <h1 className="app-title">AtheniaN</h1>
         <h2 className="place-name">Place Name</h2>
         <div className="best-image-container">
         <img className="place-image"/>

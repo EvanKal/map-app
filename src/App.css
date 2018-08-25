@@ -4,6 +4,7 @@
 flex-wrap: wrap;
 height: 100vh;
 width: 100%;
+font-family: 'Quicksand', sans-serif;
 }
 
 .App-logo {
@@ -93,7 +94,7 @@ width: 100%;
 {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
-  background: #232323;
+  background: #667292;
 }
 
 .x-icon #menuToggle span:nth-last-child(2)
@@ -124,18 +125,38 @@ width: 100%;
 
 .App .contents-list {
   /* margin: 0px; */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
     position: absolute;
     z-index: 1;
     left: -200px;
     height: 100%;
     width: 200px;
-    background: white;
+    background: #daebe8;
     transition: transform 0.5s ease;
     box-sizing: border-box;
+    color: #667292;
 
   }
 
+  .App .contents-list input{
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding-left: 10px;
+    width: 100%;
+    height: 5%;
+    padding-top: 10px;
+}
+
+  .App .contents-list input:focus{
+    border: 2px solid #b7d7e8;
+}
+
   .App .contents-list h1{
+    width: 100%;
+    height: 10%;
     padding-top: 10px;
 }
 
@@ -144,6 +165,8 @@ transform: translate(200px);
   }
 
 .App .list {
+  width: 100%;
+  height: 80%;
   padding: 0;
   list-style-type: none;
   }
@@ -163,7 +186,16 @@ transform: translate(200px);
     width: 30%;
     display: flex;
     flex-wrap: wrap;
+    background: #667292;
+    color: #daebe8;
+
   }
+
+.App .extra-info .app-title{
+  margin: auto;
+  width: 100%;
+  font-family: 'Pacifico', cursive;
+}
 
 .App .extra-info .place-name{
   margin: auto;

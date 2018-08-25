@@ -34,7 +34,6 @@ render () {
   return(
     <div className="contents-list">
     <h1 className="app-title">Contents</h1>
-    <hr/>
     <input
               className="search-places"
               type="text"
@@ -44,7 +43,6 @@ render () {
                 this.updateQuery(event.target.value);
               }}
             />
-      <hr/>
     <div className="markers-in-list">
     <ul className="list">
     {markersInList.length > 0 && (
