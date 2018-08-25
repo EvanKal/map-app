@@ -40,9 +40,6 @@ font-family: 'Quicksand', sans-serif;
   left: 10px;
   cursor: pointer;
   z-index: 2;
-
-
-
 }
 
 #menuToggle
@@ -61,7 +58,7 @@ font-family: 'Quicksand', sans-serif;
   margin-bottom: 5px;
   position: relative;
 
-  background: #cdcdcd;
+  background: #667292;
   border-radius: 3px;
 
   /* z-index: 2; */
@@ -119,6 +116,11 @@ font-family: 'Quicksand', sans-serif;
   /* margin: 0px; */
     height: 100%;
     width: 70%;
+  }
+
+.App .mapContainer .gm-style-mtc{
+  left: 40px;
+  top: -2px;
   }
 
 /* ---------------------Contents div-------------------- */

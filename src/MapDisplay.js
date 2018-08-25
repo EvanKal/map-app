@@ -30,6 +30,7 @@ class MapDisplay extends Component {
 // }
 
   initMap = () => {
+    // let getCntlOpts = this.getControlOptions();
      var styledMapType = new this.props.google.maps.StyledMapType(
        [
          {
@@ -240,10 +241,27 @@ class MapDisplay extends Component {
   let newMap = this.props.map;
 
   //Associate the styled map with the MapTypeId and set it to display.
-  newMap.mapTypes.set('styled_map', styledMapType);
-  newMap.setMapTypeId('styled_map');
+    newMap.mapTypes.set('styled_map', styledMapType);
+    newMap.setMapTypeId('styled_map');
+
+  // let promise1 = new Promise(function(resolve, reject) {
+  //   newMap.mapTypes.set('styled_map', styledMapType);
+  //   newMap.setMapTypeId('styled_map');
+  //   resolve;
+  // })
+  //
+  // promise1.then((resolve) => {
+  //   return getCntlOpts;
+  // })
 
 };
+
+// getControlOptions = () => {
+//   if(document.querySelector(".gm-style-mtc")) {
+//   document.querySelector(".gm-style-mtc").parentElement.classList.add("map-type-controls");
+//   console.log("Added class");
+//   }
+// }
 
 //   initMarkers = (google, map) => {
 //     //Instances that are going to be needed in the lower class functions
