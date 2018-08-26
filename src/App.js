@@ -91,7 +91,13 @@ class App extends Component {
           })
           return {google: google, map: map, gotGoogle: true};
       });
-    });
+    })
+    .catch((error) => {
+      console.log(error);
+      this.mapOverlay();
+    })
+
+
   }
 
   createScriptTag = (content) => {
@@ -106,6 +112,7 @@ class App extends Component {
   }
 
   placesRendered = (query) => {
+    if(this.state.google){
     let placesArray = [];
     if(query) {
       const match = new RegExp(escapeRegExp(query), 'i')
@@ -114,6 +121,9 @@ class App extends Component {
     } else {
       return this.state.places;
     }
+  } else {
+    return [];
+  }
   }
 
   requestPlaceDetails = (id) => {
@@ -127,6 +137,18 @@ class App extends Component {
       console.log(error);
       this.extraInfoOverlay();
     })
+  }
+
+  mapOverlay = () => {
+    let mapOverlay = document.createElement("div");
+    let mapOverlayText = document.createElement("p");
+    mapOverlayText.innerHTML = "Network Error! Failed to retrieve map."
+
+    mapOverlay.setAttribute("class", "map-overlay");
+    mapOverlayText.setAttribute("class", "map-overlay-text");
+
+    mapOverlay.appendChild(mapOverlayText);
+    document.querySelector("#map").appendChild(mapOverlay);
   }
 
   extraInfoOverlay = () => {
@@ -190,7 +212,10 @@ class App extends Component {
 
 
 //Set the name
+  if(place.hasOwnProperty("name")) {
+
     document.querySelector(".place-name").innerHTML = place.name;
+  }
 
 //Set the image
     if(place.hasOwnProperty("bestPhoto")) {
@@ -200,7 +225,10 @@ class App extends Component {
     }
 
 //Set the type of the place
+if(place.hasOwnProperty("categories")) {
+
     document.querySelector(".type").innerHTML = place.categories[0].name;
+}
 
 //Set the menu
     if(place.attributes.groups.length >= 5)
@@ -209,12 +237,27 @@ class App extends Component {
     }
 
 //Set the metrics
+if(place.hasOwnProperty("rating")) {
     document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
+  }
+  if(place.hasOwnProperty("likes")) {
+
     document.querySelector(".likes").innerHTML = `Likes: ${place.likes.count}`;
+  }
+  if(place.hasOwnProperty("listed")) {
+
     document.querySelector(".listed").innerHTML = `Listed: ${place.listed.count} times`;
+  }
 
 //Set the timetable
-    createHoursTable(place.popular.timeframes);
+if(place.hasOwnProperty("popular")) {
+  if(place.popular.hasOwnProperty("timeframes")){
+
+  createHoursTable(place.popular.timeframes);
+}} else {
+  let hoursContainer = document.querySelector(".working-hours");
+  hoursContainer.innerHTML = "Working hours not available";
+}
 
 //Set address in Info InfoWindow
 

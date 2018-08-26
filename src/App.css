@@ -113,10 +113,20 @@ font-family: 'Quicksand', sans-serif;
 /* ---------------------Map div-------------------- */
 
 .App .mapContainer {
+  display: flex;
+  flex-wrap: wrap;
   /* margin: 0px; */
-    height: 100vh;
+    height: 100%;
     width: 70%;
   }
+
+.App .mapContainer #map {
+  /* margin: 0px; */
+    height: 100%;
+    width: 100%;
+  }
+
+
 
 .App .mapContainer .gm-style-mtc{
   left: 40px;
@@ -136,6 +146,26 @@ font-family: 'Quicksand', sans-serif;
       height: 150px;
     }
 
+    .App #map .map-overlay {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: #daebe8;
+      opacity: 0.5;
+    }
+
+    .App #map .map-overlay-text {
+      width: 100%;
+      text-align: center;
+      color: #667292;
+      font-weight: bold;
+
+    }
+
+
+
 
 /* ---------------------Contents div-------------------- */
 
@@ -153,7 +183,6 @@ font-family: 'Quicksand', sans-serif;
     transition: transform 0.5s ease;
     box-sizing: border-box;
     color: #667292;
-
   }
 
   .App .contents-list input{
@@ -164,6 +193,7 @@ font-family: 'Quicksand', sans-serif;
     width: 100%;
     height: 5%;
     padding-top: 10px;
+    font-size: 1.2vw;
 }
 
   .App .contents-list input:focus{
@@ -177,6 +207,8 @@ font-family: 'Quicksand', sans-serif;
     padding-top: 25px;
     box-sizing: border-box;
     text-align: left;
+    font-size: 3vw;
+
 }
 
 .App .move{
@@ -195,6 +227,7 @@ transform: translate(200px);
 
 .App .list p {
   margin: 0;
+  font-size: 1.5vw;
   }
 
 .App .list li{
@@ -235,6 +268,8 @@ transform: translate(200px);
     flex-wrap: wrap;
     flex-direction: column;
     position:relative;
+    font-size: 1.8vw;
+
 
 }
 
@@ -252,6 +287,7 @@ align-items: center;
   margin: 0;
   width: 100%;
   text-align: center;
+  font-size: 4vw;
 }
 
 .App .extra-info .place-name-container{
@@ -268,6 +304,7 @@ align-items: center;
   margin: 0;
   width: 100%;
   text-align: center;
+  font-size: 2.5vw;
 }
 
 .App .extra-info .helping-image-container{
@@ -276,6 +313,7 @@ align-items: center;
   width: 100%;
   height: 30%;
   box-sizing: border-box;
+
   margin: 0;
 }
 
@@ -283,6 +321,7 @@ align-items: center;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+
   margin: 0;
 }
 
@@ -292,6 +331,7 @@ align-items: center;
   width: 100%;
   height: 100%;
   box-sizing: content-box;
+  opacity: 0.9;
 }
 
 .App .extra-info .type-container{
@@ -333,6 +373,7 @@ align-items: center;
   margin: 0;
   display: flex;
   align-items: center;
+  font-size: 1.8vw;
 }
 
 .App .extra-info .metrics p{
@@ -370,6 +411,8 @@ align-items: center;
   /* margin: 0;
   display: flex;
   align-items: center; */
+  font-size: 1.4vw;
+  overflow-y:auto;
 }
 
 .App .working-hours {
@@ -391,7 +434,10 @@ align-items: center;
 } */
 
 .App .working-hours tr td{
-  padding: 0;
+  /* width:0.1%;
+  white-space: nowrap; */
+
+  /* padding: 0; */
   /* width: 100%; */
 }
   /* td {
@@ -409,12 +455,13 @@ white-space: nowrap;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  /* display: none; */
+
 
   /* width: 100%; */
 }
 
 .App .extra-info .extra-info-overlay .overlay-text{
-  position: absolute;
   width: 100%;
   color: #667292;
   font-weight: bold;
@@ -439,16 +486,21 @@ white-space: nowrap;
   order: 2;
   width: 50%;
   height: 150px;
+  font-weight: bold;
   }
 
 .App  .info-window-marker-title {
+  padding-top: 5px;
     width: 100%;
     height: 20%;
+    box-sizing: border-box;
   }
 
 .App  .info-window-address {
+  padding-top: 20px;
     width: 100%;
     height: 80%;
+    box-sizing: border-box;
   }
 
 .App  .streetview-container {
