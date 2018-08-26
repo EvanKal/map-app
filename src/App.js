@@ -74,6 +74,7 @@ class App extends Component {
     // document.addEventListener("click", (event) => {
     //   console.log(event.target) ;
     // })
+    this.resetExtraInfo();
     GoogleMapsJavascriptAPI.getAPI()
       .then(res => {
         this.createScriptTag(res);
@@ -96,6 +97,7 @@ class App extends Component {
     .catch((error) => {
       console.log(error);
       this.mapOverlay();
+      this.extraInfoOverlay();
     })
 
 
@@ -109,7 +111,8 @@ class App extends Component {
   };
 
   updateQueryInApp = (query) => {
-    this.setState({ queryInApp: query })
+    this.setState({ queryInApp: query });
+    this.resetExtraInfo();
   }
 
   placesRendered = (query) => {
@@ -130,7 +133,7 @@ class App extends Component {
   requestPlaceDetails = (id) => {
     GoogleMapsJavascriptAPI.fourSquareAPI(id)
     .then((res) => {
-      console.log("response", res);
+      console.log(JSON.stringify(res));
       document.querySelector(".extra-info-overlay").classList.add("hide-overlay");
       this.fillExtraInfo(res);
     })
@@ -153,10 +156,28 @@ class App extends Component {
   }
 
   extraInfoOverlay = () => {
+    this.resetExtraInfo();
     let extraInfoOverlay = document.querySelector(".extra-info-overlay");
     extraInfoOverlay.classList.remove("hide-overlay");
     extraInfoOverlay.querySelector(".overlay-text").innerHTML = `Network Error! Nothing to display...`;
 
+  }
+
+  resetExtraInfo = () => {
+    document.querySelector(".place-name").innerHTML = "";
+    if(document.querySelector(".place-image").hasAttribute("src")) {
+    document.querySelector(".place-image").removeAttribute("src");
+    document.querySelector(".place-image").removeAttribute("alt");
+    }
+    document.querySelector(".type").innerHTML = "";
+    document.querySelector(".menu").innerHTML = "";
+    document.querySelector(".rating").innerHTML = "";
+    document.querySelector(".likes").innerHTML = "";
+    document.querySelector(".listed").innerHTML = "";
+    document.querySelector(".working-hours-text").innerHTML = "";
+    document.querySelector(".working-hours").innerHTML = "";
+    document.querySelector(".overlay-text").innerHTML = `Click on a marker!`;
+    document.querySelector(".extra-info-overlay").classList.remove("hide-overlay");
   }
 
   fillExtraInfo = (place) => {
@@ -232,10 +253,17 @@ if(place.hasOwnProperty("categories")) {
 }
 
 //Set the menu
-    if(place.attributes.groups.length >= 5)
+    if(place.hasOwnProperty("attributes"))
     {
-      document.querySelector(".menu").innerHTML = place.attributes.groups[5].summary;
+      let attributeObj;
+      attributeObj = place.attributes.groups.filter((elem) => {
+        let elemObj = elem;
+        return Object.values(elemObj).includes("serves");
+      })
+      if(attributeObj){
+      document.querySelector(".menu").innerHTML = attributeObj[0].summary;
     }
+  }
 
 //Set the metrics
 if(place.hasOwnProperty("rating")) {
@@ -253,9 +281,10 @@ if(place.hasOwnProperty("rating")) {
 //Set the timetable
 if(place.hasOwnProperty("popular")) {
   if(place.popular.hasOwnProperty("timeframes")){
-
+  document.querySelector(".working-hours-text").innerHTML = "Working Hours";
   createHoursTable(place.popular.timeframes);
 }} else {
+  document.querySelector(".working-hours-text").innerHTML = "Working Hours";
   let hoursContainer = document.querySelector(".working-hours");
   hoursContainer.innerHTML = "Working hours not available";
 }

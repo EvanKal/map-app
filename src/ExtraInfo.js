@@ -33,7 +33,7 @@ class ExtraInfo extends Component {
           <p className="listed">listed</p>
         </div>
         <div className = "working-hours-container">
-        <p>Working Hours</p>
+        <p className="working-hours-text">Working Hours</p>
         <div className="table-container">
         <table className="working-hours"></table>
         </div>
