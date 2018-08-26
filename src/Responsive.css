@@ -1,0 +1,145 @@
+@media screen and (max-width: 420px) {
+  .App {
+  overflow-x:hidden;
+  }
+
+  .App .mapContainer {
+    /* position: absolute; */
+    height: 90vh;
+    width: 100%;
+  }
+
+.App .extra-info {
+  position: static;
+  width: 100%;
+}
+.App .extra-info-subcontainer {
+  width: 100%;
+}
+
+.App .extra-info .app-title{
+  font-size: 10vw;
+}
+
+.App .extra-info .place-name {
+  font-size: 6vw;
+}
+
+.App .extra-info-subcontainer {
+  font-size: 4.5vw;
+}
+
+.App .extra-info .metrics {
+font-size: 3.5vw;
+}
+
+.App .working-hours-container .table-container {
+  font-size: 3.5vw;
+}
+
+.App .contents-list h1{
+  font-size: 7vw;
+}
+
+.App .contents-list input{
+  font-size: 3vw;
+}
+
+.App .list p {
+  font-size: 4.5vw;
+}
+
+}
+
+@media screen and (min-width: 421px) and (max-width: 770px) {
+
+  .App {
+  overflow-x:hidden;
+  }
+
+  .App .mapContainer {
+    /* position: absolute; */
+    height: 90vh;
+    width: 100%;
+  }
+
+.App .extra-info {
+  position: static;
+  width: 100%;
+}
+.App .extra-info-subcontainer {
+  width: 100%;
+}
+
+.App .extra-info .app-title{
+  font-size: 6vw;
+}
+
+.App .extra-info .place-name {
+  font-size: 4vw;
+}
+
+.App .extra-info-subcontainer {
+  font-size: 3vw;
+}
+
+.App .extra-info .metrics {
+font-size: 2.5vw;
+}
+
+.App .working-hours-container .table-container {
+  font-size: 2.5vw;
+}
+
+.App .contents-list h1{
+  font-size: 5vw;
+}
+
+.App .contents-list input{
+  font-size: 1.5vw;
+}
+
+.App .list p {
+  font-size: 2.5vw;
+}
+
+
+}
+
+@media screen and (min-width: 1101px) {
+
+
+
+.App .extra-info .app-title{
+  font-size: 3.5vw;
+}
+
+.App .extra-info .place-name {
+  font-size: 2vw;
+}
+
+.App .extra-info-subcontainer {
+  font-size: 1.7vw;
+}
+
+.App .extra-info .metrics {
+font-size: 1.2vw;
+}
+
+.App .working-hours-container .table-container {
+  font-size: 1.2vw;
+}
+
+.App .contents-list h1{
+  font-size: 2.5vw;
+}
+
+.App .contents-list input{
+  font-size: 0.9vw;
+}
+
+.App .list p {
+  font-size: 1.5vw;
+}
+
+}

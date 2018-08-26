@@ -8,6 +8,7 @@ import Marker from "./Marker";
 import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from 'escape-string-regexp'
 import "./App.css";
+import "./Responsive.css";
 
 class App extends Component {
   state = {

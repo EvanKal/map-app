@@ -166,7 +166,7 @@ class Marker extends Component {
           toggleBounce(marker)
           populateInfoWindow(marker, largeInfowindow);
 
-          // requestVenue(elem.venueID);
+          requestVenue(elem.venueID);
 
       });
 
