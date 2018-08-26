@@ -112,7 +112,7 @@ class App extends Component {
   }
 
   placesRendered = (query) => {
-    if(this.state.google){
+    // if(this.state.google){
     let placesArray = [];
     if(query) {
       const match = new RegExp(escapeRegExp(query), 'i')
@@ -121,9 +121,9 @@ class App extends Component {
     } else {
       return this.state.places;
     }
-  } else {
-    return [];
-  }
+  // } else {
+  //   return [];
+  // }
   }
 
   requestPlaceDetails = (id) => {
@@ -281,7 +281,8 @@ console.log("queryInApp", this.state.queryInApp)
 
         <ContentsList
         markersInList={this.placesRendered(queryInApp)}
-        updateQueryInApp={this.updateQueryInApp} />
+        updateQueryInApp={this.updateQueryInApp}
+        google={this.state.google} />
 
         <MapDisplay
         gotGoogle={this.state.gotGoogle}
