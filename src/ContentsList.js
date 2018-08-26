@@ -45,7 +45,7 @@ render () {
             />
     <div className="markers-in-list">
     <ul className="list">
-    {markersInList.length > 0 && (
+    {this.props.google && markersInList.length > 0 && (
 
     markersInList.map((elem) => {
       return (
@@ -57,15 +57,23 @@ render () {
 
     )}
 
-    {markersInList.length == 0 && (
-
+    {this.props.google && markersInList.length == 0 && (
 
         <li>
         <p>No results!</p>
         </li>
+
       )
     }
 
+    {!this.props.google && (
+
+        <li>
+        <p>No results!</p>
+        </li>
+
+      )
+    }
     </ul>
     </div>
 
