@@ -9,7 +9,7 @@ class ExtraInfo extends Component {
     return (
       <div className="extra-info">
         <div className = "app-title-container">
-        <h1 className="app-title">AtheniaN</h1>
+        <a className="app-title" href="/">AtheniaN</a>
         </div>
         <div className="extra-info-subcontainer">
         <div className = "place-name-container">
