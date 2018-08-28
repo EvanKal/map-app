@@ -23,8 +23,9 @@ clearQuery = () => {
 
 clickHandler = (event) => {
 
-  let text = event.target.innerText
-  let str = "[title="+text+"]"
+  let text = event.target.innerHTML;
+  let str = `[title='${text}']`
+  console.log("STRING", str);
   let markerToActivate = document.body.querySelector(str);
   markerToActivate.dispatchEvent(new Event("click"));
 
@@ -32,12 +33,15 @@ clickHandler = (event) => {
 
 keyPressHandler = (event) => {
   if(event.keyCode == 13){
-  let text1 = event.target.innerText
-  let str1 = "[title="+text1+"]"
+  let text1 = event.target.querySelector("p").innerHTML;
+
+  // let str1 = "[title="+text1+"]"
+  let str1 = `[title='${text1}']`
+  console.log("STRING", str1);
   let markerToActivate1 = document.body.querySelector(str1);
   markerToActivate1.dispatchEvent(new Event("click"));
 
-  
+
   document.querySelector(".extra-info-subcontainer").setAttribute("tabindex", "0");
   document.querySelector(".extra-info-subcontainer").setAttribute("aria-label", "Extra Info");
 

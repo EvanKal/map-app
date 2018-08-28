@@ -316,7 +316,6 @@ if(place.hasOwnProperty("categories")) {
       if(attributeObj.length>0){
       document.querySelector(".menu").innerHTML = attributeObj[0].summary;
       document.querySelector(".menu").setAttribute("tabindex", "0");
-      document.querySelector(".menu").setAttribute("aria-label", "Menu");
     }
   }
 
