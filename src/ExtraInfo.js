@@ -16,7 +16,7 @@ class ExtraInfo extends Component {
         </h1>
         </div>
         <div className="extra-info-subcontainer">
-        <div className = "place-name-container">
+        <div className = "place-name-container" style={{backgroundImage: 'url(' + require('./FoursquareLogo.png') + ')'}}>
         <h2 className="place-name">Place Name</h2>
         </div>
         <div className="helping-image-container">

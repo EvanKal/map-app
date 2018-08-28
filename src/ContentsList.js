@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import escapeRegExp from 'escape-string-regexp'
+
 
 class ContentsList extends Component {
 
@@ -23,8 +25,8 @@ clearQuery = () => {
 
 clickHandler = (event) => {
 
-  let text = event.target.innerHTML;
-  let str = `[title='${text}']`
+  let text = event.target.textContent;
+  let str = `[title='${text}']`;
   console.log("STRING", str);
   let markerToActivate = document.body.querySelector(str);
   markerToActivate.dispatchEvent(new Event("click"));
@@ -33,9 +35,7 @@ clickHandler = (event) => {
 
 keyPressHandler = (event) => {
   if(event.keyCode == 13){
-  let text1 = event.target.querySelector("p").innerHTML;
-
-  // let str1 = "[title="+text1+"]"
+  let text1 = event.target.querySelector("p").textContent;
   let str1 = `[title='${text1}']`
   console.log("STRING", str1);
   let markerToActivate1 = document.body.querySelector(str1);

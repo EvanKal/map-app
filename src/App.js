@@ -199,6 +199,9 @@ class App extends Component {
   resetExtraInfo = () => {
     document.querySelector(".place-name").innerHTML = "";
     document.querySelector(".place-name").removeAttribute("tabindex");
+    document.querySelector(".place-name").removeAttribute("tabindex");
+    document.querySelector(".place-name-container").classList.toggle("place-name-container-hidden");
+    // document.querySelector(".place-name-container").classList.toggle(".place-name-container");
 
     if(document.querySelector(".place-image").hasAttribute("src")) {
     document.querySelector(".place-image").removeAttribute("src");
@@ -286,6 +289,8 @@ class App extends Component {
 
     document.querySelector(".place-name").innerHTML = place.name;
     document.querySelector(".place-name").setAttribute("tabindex", "0");
+    document.querySelector(".place-name-container").classList.togle("place-name-container-hidden");
+    // document.querySelector(".place-name-container").classList.toggle("place-name-container");
   }
 
 //Set the image
