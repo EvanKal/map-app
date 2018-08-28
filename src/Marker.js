@@ -9,13 +9,13 @@ class Marker extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     //this condition handles the initial rendering of the markers
-    if (this.props.google != prevProps.google) {
+    if (this.props.google !== prevProps.google) {
       console.log("Initial marker rendering")
       this.initMarkers(this.props.google, this.props.map);
 
     }
     //this condition handles the following marker renderings
-  if(JSON.stringify(this.props.markersToDisplay) != JSON.stringify(prevProps.markersToDisplay)) {
+  if(JSON.stringify(this.props.markersToDisplay) !== JSON.stringify(prevProps.markersToDisplay)) {
   this.clearMarkers(prevState.setOfCurrentMarkers);
   this.initMarkers(this.props.google, this.props.map);
 
@@ -49,7 +49,7 @@ class Marker extends Component {
         infowindow.marker = marker;
 
         // Make sure the marker property is cleared if the infowindow is closed.
-        if (infowindow.__e3_.closeclick != {}){
+        if (infowindow.__e3_.closeclick !== {}){
           infowindow.__e3_.closeclick = {};
           infowindow.addListener("closeclick", function() {
           resetMarkers([marker]);
@@ -57,13 +57,13 @@ class Marker extends Component {
           infowindow.marker = null;
         });}
 
-        // var streetViewService = new google.maps.StreetViewService();
+        // let streetViewService = new google.maps.StreetViewService();
         let streetViewService = new google.maps.StreetViewService();
-        var radius = 50;
+        let radius = 50;
         function getStreetView(data, status) {
-          if (status == google.maps.StreetViewStatus.OK) {
-            var nearStreetViewLocation = data.location.latLng;
-            var heading = google.maps.geometry.spherical.computeHeading(
+          if (status === google.maps.StreetViewStatus.OK) {
+            let nearStreetViewLocation = data.location.latLng;
+            let heading = google.maps.geometry.spherical.computeHeading(
               nearStreetViewLocation,
               marker.position
             );
@@ -78,14 +78,15 @@ class Marker extends Component {
               </div>
               </div>`
             );
-            var panoramaOptions = {
+            let panoramaOptions = {
               position: nearStreetViewLocation,
               pov: {
                 heading: heading,
                 pitch: 30
               }
             };
-            var panorama = new google.maps.StreetViewPanorama(
+            let panorama = "";
+            panorama = new google.maps.StreetViewPanorama(
               document.getElementById("pano"),
               panoramaOptions
             );
@@ -118,13 +119,13 @@ class Marker extends Component {
     };
 
     let resetMarkers = (array) => {
-      for (var i = 0; i < array.length; i++) {
+      for (let i = 0; i < array.length; i++) {
 
         if(array[i].animation != null) {
               array[i].setAnimation(-1);
             }
 
-        if(array[i].icon.url != "http://maps.google.com/mapfiles/ms/icons/red-dot.png"){
+        if(array[i].icon.url !== "http://maps.google.com/mapfiles/ms/icons/red-dot.png"){
           array[i].setIcon({url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"});
             }
 
@@ -170,7 +171,7 @@ class Marker extends Component {
       });
 
 
-      markersArray.push(marker);
+      return markersArray.push(marker);
     });
 
 
@@ -178,7 +179,7 @@ class Marker extends Component {
     map.fitBounds(bounds);
     this.saveMarkers(markersArray);
   }
-  else if (this.props.markersToDisplay.length==0) {
+  else if (this.props.markersToDisplay.length===0) {
    map.setCenter({ lat: 37.975543, lng: 23.734851 })
    map.setZoom(10)
   }
@@ -190,7 +191,7 @@ class Marker extends Component {
 }
 
 clearMarkers = (array) => {
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
           array[i].setMap(null);
         }
 }

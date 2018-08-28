@@ -227,6 +227,7 @@ class App extends Component {
   }
 
   fillExtraInfo = (place) => {
+    if (place) {
 
     let createHoursTable = (array) => {
       let hoursContainer = document.querySelector(".working-hours");
@@ -364,6 +365,7 @@ if(place.hasOwnProperty("popular")) {
   }
 
   }
+}
 
 
   render() {

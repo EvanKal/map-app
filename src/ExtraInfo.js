@@ -21,7 +21,7 @@ class ExtraInfo extends Component {
         </div>
         <div className="helping-image-container">
         <div className="best-image-container">
-        <img className="place-image"/>
+        <img className="place-image" alt=""/>
         </div>
         </div>
         <div className = "type-container">

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import escapeRegExp from 'escape-string-regexp'
 
 
 class ContentsList extends Component {
@@ -34,7 +33,7 @@ clickHandler = (event) => {
 }
 
 keyPressHandler = (event) => {
-  if(event.keyCode == 13){
+  if(event.keyCode === 13){
   let text1 = event.target.querySelector("p").textContent;
   let str1 = `[title='${text1}']`
   console.log("STRING", str1);
@@ -56,16 +55,49 @@ getFocusable = () => {
   let menuIcon = document.querySelector(".menu-icon-container");
   let arrayOfFocusableElements = Array.from(results);
 
-  arrayOfFocusableElements.push(menuIcon);
+  // arrayOfFocusableElements.push(menuIcon);
 
   console.log(arrayOfFocusableElements);
 
   let count = arrayOfFocusableElements.length-1;
 
+  let toggleAriaSelected = (i) => {
+    if (0 < i && i < arrayOfFocusableElements.length) {
+    let array = arrayOfFocusableElements;
+    console.log(array);
+    let option = "";
+    option = array[i];
+    console.log(option);
+
+    if(option.hasAttribute("aria-selected")) {
+    if(option.getAttribute("aria-selected") == "true") {
+      option.setAttribute("aria-selected", "false")
+    } else {
+      option.setAttribute("aria-selected", "true")
+    }
+  }
+}
+    else if (i===0){
+      let array = arrayOfFocusableElements;
+      console.log(array);
+      let option = "";
+      option = array[arrayOfFocusableElements.length -1];
+      console.log(option);
+
+      option.setAttribute("aria-selected", "false")
+    }
+
+
+
+
+    }
+
+
+
 
   cont.addEventListener("keydown", function(e) {
 
-    if(e.keyCode == 9) {
+    if(e.keyCode === 9) {
       e.preventDefault();
       if(cont.classList.contains("move")) {
 
@@ -73,25 +105,33 @@ getFocusable = () => {
 
       if(e.shiftKey && e.keyCode == 9 ) {
         e.preventDefault();
-        if (count == 1) {
+        if (count === 0) {
           e.preventDefault();
           console.log(count);
-          count = arrayOfFocusableElements.length-1;
+          count = arrayOfFocusableElements.length -1;
+          toggleAriaSelected(count+1);
+          toggleAriaSelected(count);
           arrayOfFocusableElements[count].focus();
         } else {
           count = count-1;
           console.log(count);
+          toggleAriaSelected(count+1);
+          toggleAriaSelected(count);
           arrayOfFocusableElements[count].focus();
         }
-      } else if (count == arrayOfFocusableElements.length-1) {
-            count = 1;
+      } else if (count === arrayOfFocusableElements.length-1) {
+            count = 0;
             console.log(count);
             let next = arrayOfFocusableElements[count]
+            toggleAriaSelected(count-1);
+            toggleAriaSelected(count);
             next.focus();
           } else {
             count = count + 1;
             console.log(count);
-            let next = arrayOfFocusableElements[count]
+            toggleAriaSelected(count-1);
+            toggleAriaSelected(count);
+            let next = arrayOfFocusableElements[count];
             next.focus();
           }
         }
@@ -116,7 +156,7 @@ getFocusable = () => {
 
 render () {
   const {query} = this.state;
-  const {markersInList,updateQueryInApp} = this.props;
+  const {markersInList} = this.props;
 
   return(
     <div className="contents-list">
@@ -150,6 +190,7 @@ render () {
         style={{cursor: "pointer"}}
         tabIndex="0"
         role="option"
+        aria-selected= "false"
         onKeyUp={(event) => this.keyPressHandler(event)}>
 
         <p>{elem.name}</p>
@@ -162,7 +203,7 @@ render () {
 
     {this.props.google && markersInList.length == 0 && (
 
-        <li tabIndex="0" role="option">
+        <li tabIndex="0">
         <p>No results!</p>
         </li>
 
@@ -171,7 +212,7 @@ render () {
 
     {!this.props.google && (
 
-        <li tabIndex="0" role="option">
+        <li tabIndex="0">
         <p>No results!</p>
         </li>
 

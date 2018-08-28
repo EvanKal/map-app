@@ -42,7 +42,7 @@ class MapDisplay extends Component {
 
   accessibilityMapOptions = () => {
   let map = document.querySelector("#map");
-  let markersAr = this.props.markersToDisplay;
+  // let markersAr = this.props.markersToDisplay;
 
 
   map.addEventListener("DOMSubtreeModified", () => {
@@ -50,7 +50,9 @@ class MapDisplay extends Component {
   let aTags = map.querySelectorAll("div.gmnoprint a");
   let buttons = map.querySelectorAll(".gm-control-active");
   let gmstylediv = map.querySelector("div[tabindex='0']");
+  let gmstyledivaddresslink = map.querySelectorAll("div.streetview-container a");
   let iframe = map.querySelector("iframe");
+
 
 
   if (aTag !== null) {
@@ -85,6 +87,14 @@ class MapDisplay extends Component {
 
     })
   }
+
+  if (gmstyledivaddresslink !== null) {
+    Array.from(gmstyledivaddresslink).forEach((elem) => {
+    elem.setAttribute("tabindex", "-1");
+
+  })
+  }
+
   //    &&
   //   !aTag.hasAttribute("tabindex")
   // ) {
@@ -323,7 +333,6 @@ class MapDisplay extends Component {
   // promise1.then((resolve) => {
   //   return getCntlOpts;
   // })
-  res;
 };
 
 
