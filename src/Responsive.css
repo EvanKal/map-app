@@ -25,6 +25,10 @@
   font-size: 6vw;
 }
 
+.App .extra-info .place-name-container {
+  background-size: 6vw;
+}
+
 .App .extra-info-subcontainer {
   font-size: 4.5vw;
 }
@@ -77,6 +81,10 @@ font-size: 3.5vw;
 
 .App .extra-info .place-name {
   font-size: 4vw;
+}
+
+.App .extra-info .place-name-container {
+  background-size: 5vw;
 }
 
 .App .extra-info-subcontainer {
