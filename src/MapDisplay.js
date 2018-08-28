@@ -20,16 +20,86 @@ class MapDisplay extends Component {
     if(this.props.google !== prevProps.google){
     console.log("Rendering Map...")
     this.initMap();
+    this.accessibilityMapOptions();
 }
 }
 
-// componentDidUpdate() {
-// if(this.state.google){
-//   this.initMarkers(this.state.google, this.state.map);
+// accessibilityMarkerOptions = (markers) => {
+//   if(markers.length>0){
+//   let marker = "";
+//
+// markers.forEach((place) => {
+//   marker = document.querySelector(`div[title='${place.name}']`);
+//   console.log("!!!", marker);
+//   // marker.setAttribute("tabindex", "0");
+// })
 // }
 // }
+//
 
-  initMap = () => {
+
+
+
+  accessibilityMapOptions = () => {
+  let map = document.querySelector("#map");
+  let markersAr = this.props.markersToDisplay;
+
+
+  map.addEventListener("DOMSubtreeModified", () => {
+  let aTag = map.querySelector("div a[title='Click to see this area on Google Maps']");
+  let aTags = map.querySelectorAll("div.gmnoprint a");
+  let buttons = map.querySelectorAll(".gm-control-active");
+  let gmstylediv = map.querySelector("div[tabindex='0']");
+  let iframe = map.querySelector("iframe");
+
+
+  if (aTag !== null) {
+    aTag.setAttribute("tabindex", "-1");
+  }
+
+  if (gmstylediv !== null) {
+    gmstylediv.setAttribute("tabindex", "-1");
+  }
+
+  if (iframe !== null) {
+    iframe.setAttribute("tabindex", "-1");
+
+    // markersAr.forEach((place) => {
+    //   let marker = document.querySelector(`div[title='${place.name}']`);
+    //   if (marker && !marker.hasAttribute("tabindex")) {
+    //     console.log(marker);
+    //     marker.setAttribute("tabindex", "0");
+    //   } else {return;}
+    // })
+  }
+
+    if(aTags !== null) {
+      Array.from(aTags).forEach((elem) => {
+          elem.setAttribute("tabindex", "-1");
+        });
+    }
+
+    if (buttons !== null) {
+      Array.from(buttons).forEach((elem) => {
+      elem.setAttribute("tabindex", "-1");
+
+    })
+  }
+  //    &&
+  //   !aTag.hasAttribute("tabindex")
+  // ) {
+  //
+  //
+  // console.log("atags!!!", aTags);
+  // console.log("atag!!!", aTag);
+  // console.log("buttons!!!", buttons);
+
+});
+}
+
+
+
+  initMap = (res) => {
     // let getCntlOpts = this.getControlOptions();
      var styledMapType = new this.props.google.maps.StyledMapType(
        [
@@ -253,101 +323,17 @@ class MapDisplay extends Component {
   // promise1.then((resolve) => {
   //   return getCntlOpts;
   // })
-
+  res;
 };
 
-// getControlOptions = () => {
-//   if(document.querySelector(".gm-style-mtc")) {
-//   document.querySelector(".gm-style-mtc").parentElement.classList.add("map-type-controls");
-//   console.log("Added class");
-//   }
-// }
 
-//   initMarkers = (google, map) => {
-//     //Instances that are going to be needed in the lower class functions
-//     let bounds = new google.maps.LatLngBounds();
-//     let largeInfowindow = new google.maps.InfoWindow();
-//
-//     //Creates the info window
-//     let populateInfoWindow = (marker, infowindow) => {
-//       // Check to make sure the infowindow is not already opened on this marker.
-//       if (infowindow.marker != marker) {
-//         infowindow.setContent('');
-//         infowindow.marker = marker;
-//         // Make sure the marker property is cleared if the infowindow is closed.
-//         infowindow.addListener("closeclick", function() {
-//           infowindow.setMarker = null;
-//         });
-//
-//         // var streetViewService = new google.maps.StreetViewService();
-//         let streetViewService = new google.maps.StreetViewService();
-//         var radius = 50;
-//         function getStreetView(data, status) {
-//           if (status == google.maps.StreetViewStatus.OK) {
-//             var nearStreetViewLocation = data.location.latLng;
-//             var heading = google.maps.geometry.spherical.computeHeading(
-//               nearStreetViewLocation,
-//               marker.position
-//             );
-//             infowindow.setContent(
-//               "<div>" + marker.title + '</div><div id="pano"></div>'
-//             );
-//             var panoramaOptions = {
-//               position: nearStreetViewLocation,
-//               pov: {
-//                 heading: heading,
-//                 pitch: 30
-//               }
-//             };
-//             var panorama = new google.maps.StreetViewPanorama(
-//               document.getElementById("test"),
-//               panoramaOptions
-//             );
-//           } else {
-//             infowindow.setContent(
-//               "<div>" +
-//                 marker.title +
-//                 "</div>" +
-//                 "<div>No Street View Found</div>"
-//             );
-//           }
-//         }
-//         // Use streetview service to get the closest streetview image within
-// // 50 meters of the markers position
-// streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-// // Open the infowindow on the correct marker.
-// infowindow.open(map, marker);
-//       }
-//     };
-//
-//     //Loop through the places props object to display the respective markers
-//     this.props.markersToDisplay.map(elem => {
-//       let marker;
-//       marker = new google.maps.Marker({
-//         position: elem.position,
-//         title: elem.name
-//       });
-//
-//       bounds.extend(elem.position);
-//
-//       marker.setMap(map);
-//
-//       //Listeners for each marker
-//       marker.addListener("click", function() {
-//         populateInfoWindow(marker, largeInfowindow);
-//       });
-//     });
-//
-//     //After having finished displaying the markers
-//     map.fitBounds(bounds);
-//   };
 
   render() {
 
 
     return (
-      <div className="mapContainer">
-        <div id="map"></div>
+      <div className="mapContainer" tabIndex ="0" role="application" aria-label="map of the city of Athens, displaying the available markers">
+        <div id="map" aria-hidden="true" tabIndex="-1"></div>
       </div>
     );
   }

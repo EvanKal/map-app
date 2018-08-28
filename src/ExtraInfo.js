@@ -3,13 +3,17 @@ import React, { Component } from "react";
 class ExtraInfo extends Component {
   state = {};
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
+
 
   render() {
     return (
       <div className="extra-info">
-        <div className = "app-title-container">
-        <a className="app-title" href="/">AtheniaN</a>
+        <div className = "app-title-container" tabIndex ="0" role="banner">
+        <h1 tabIndex="-1">
+        <a className="app-title" href="/" tabIndex="0">AtheniaN</a>
+        </h1>
         </div>
         <div className="extra-info-subcontainer">
         <div className = "place-name-container">
@@ -32,7 +36,7 @@ class ExtraInfo extends Component {
           <p className="likes">likes</p>
           <p className="listed">listed</p>
         </div>
-        <div className = "working-hours-container">
+        <div className = "working-hours-container" >
         <p className="working-hours-text">Working Hours</p>
         <div className="table-container">
         <table className="working-hours"></table>

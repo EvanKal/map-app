@@ -113,6 +113,7 @@ font-family: 'Quicksand', sans-serif;
 /* ---------------------Map div-------------------- */
 
 .App .mapContainer {
+  order: 0;
   display: flex;
   flex-wrap: wrap;
   /* margin: 0px; */
@@ -171,6 +172,7 @@ font-family: 'Quicksand', sans-serif;
 
 .App .contents-list {
   /* margin: 0px; */
+  visibility: hidden;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -212,6 +214,7 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .App .move{
+  visibility: visible;
 transform: translate(200px);
   }
 
@@ -251,6 +254,7 @@ transform: translate(200px);
 
 /* ---------------------ExtraInfo div-------------------- */
 .App .extra-info {
+    order: 1;
   /* margin: 0; */
     height: 100vh;
     width: 30%;
@@ -295,6 +299,16 @@ align-items: center;
 .App .extra-info .app-title:hover{
   text-decoration: underline;
 }
+
+.App .extra-info .app-title-container h1{
+  margin: 0;
+  width: 100%;
+  /* text-align: center;
+  font-size: 4vw;
+  color: inherit;
+  text-decoration: none; */
+}
+
 
 .App .extra-info .place-name-container{
   width: 100%;

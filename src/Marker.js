@@ -12,6 +12,7 @@ class Marker extends Component {
     if (this.props.google != prevProps.google) {
       console.log("Initial marker rendering")
       this.initMarkers(this.props.google, this.props.map);
+
     }
     //this condition handles the following marker renderings
   if(JSON.stringify(this.props.markersToDisplay) != JSON.stringify(prevProps.markersToDisplay)) {
@@ -67,12 +68,12 @@ class Marker extends Component {
               marker.position
             );
             infowindow.setContent(
-              `<div class="info-window-container">
+              `<div class="info-window-container" tabindex="-1">
               <div class="name-address-container">
               <div class="info-window-marker-title">${marker.title}</div>
-              <div class="info-window-address">Address</div>
+              <div class="info-window-address" id="ariaAddressLabel">Address</div>
               </div>
-              <div class="streetview-container">
+              <div class="streetview-container" tabindex="-1" aria-hidden="true">
               <div id="pano"></div>
               </div>
               </div>`
@@ -90,12 +91,12 @@ class Marker extends Component {
             );
           } else {
             infowindow.setContent(
-              `<div class="info-window-container">
+              `<div class="info-window-container" tabindex="-1">
               <div class="name-address-container">
               <div class="info-window-marker-title">${marker.title}</div>
-              <div class="info-window-address">Address</div>
+              <div class="info-window-address" id="ariaAddressLabel">Address</div>
               </div>
-              <div class="streetview-container">
+              <div class="streetview-container" tabindex="-1">
               <div>No Street View found</div>
               </div>
               </div>`
@@ -137,8 +138,6 @@ class Marker extends Component {
 }
 
 
-
-
     //Loop through the places props object to display the respective markers
     this.props.markersToDisplay.map(elem => {
       let marker;
@@ -146,7 +145,7 @@ class Marker extends Component {
         position: elem.position,
         animation: google.maps.Animation.DROP,
         icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-        title: elem.name
+        title: elem.name,
       });
 
       bounds.extend(elem.position);
@@ -184,6 +183,7 @@ class Marker extends Component {
    map.setZoom(10)
   }
   };
+
 
   saveMarkers = (array) => {
     this.setState({setOfCurrentMarkers: array})

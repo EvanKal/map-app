@@ -99,9 +99,42 @@ class App extends Component {
       this.mapOverlay();
       this.extraInfoOverlay();
     })
-
-
   }
+
+  //   componentDidUpdate(prevProps, prevState) {
+  //     if(this.state.google !== prevState.google) {
+  // }
+  //
+  // }
+
+//   accessibility = () => {
+//   document.querySelector(".App").addEventListener("load", () => {
+// // banner
+//   let banner = document.querySelector(".app-title-container");
+//   banner.focus();
+//
+//   banner.setAttribute("role", "banner");
+//   banner.setAttribute("tabindex", "0");
+//   // banner.querySelector("h1").setAttribute("tabindex", "-1");
+//   banner.querySelector("a").setAttribute("tabindex", "0");
+//
+//
+//   banner.querySelector("a").addEventListener("keyup", (event) => {
+//     console.log(event.code);
+//     document.querySelector(".menu-icon-container").focus();
+//   })
+//
+// //Menu icon
+//
+//   let menuIcon = document.querySelector(".menu-icon-container");
+//   menuIcon.setAttribute("tabindex", "0");
+//
+//
+//
+//
+//
+// })
+// }
 
   createScriptTag = (content) => {
     let scriptTag = document.createElement("script");
@@ -133,7 +166,7 @@ class App extends Component {
   requestPlaceDetails = (id) => {
     GoogleMapsJavascriptAPI.fourSquareAPI(id)
     .then((res) => {
-      console.log(JSON.stringify(res));
+      console.log(res);
       document.querySelector(".extra-info-overlay").classList.add("hide-overlay");
       this.fillExtraInfo(res);
     })
@@ -165,17 +198,27 @@ class App extends Component {
 
   resetExtraInfo = () => {
     document.querySelector(".place-name").innerHTML = "";
+    document.querySelector(".place-name").removeAttribute("tabindex");
+
     if(document.querySelector(".place-image").hasAttribute("src")) {
     document.querySelector(".place-image").removeAttribute("src");
     document.querySelector(".place-image").removeAttribute("alt");
+    document.querySelector(".place-image").removeAttribute("tabindex");
     }
     document.querySelector(".type").innerHTML = "";
+    document.querySelector(".type").removeAttribute("tabindex");
     document.querySelector(".menu").innerHTML = "";
+    document.querySelector(".menu").removeAttribute("tabindex");
     document.querySelector(".rating").innerHTML = "";
+    document.querySelector(".rating").removeAttribute("tabindex");
     document.querySelector(".likes").innerHTML = "";
+    document.querySelector(".likes").removeAttribute("tabindex");
     document.querySelector(".listed").innerHTML = "";
+    document.querySelector(".listed").removeAttribute("tabindex");
     document.querySelector(".working-hours-text").innerHTML = "";
+    document.querySelector(".working-hours-text").removeAttribute("tabindex");
     document.querySelector(".working-hours").innerHTML = "";
+    document.querySelector(".working-hours").removeAttribute("tabindex");
     document.querySelector(".overlay-text").innerHTML = `Click on a marker!`;
     document.querySelector(".extra-info-overlay").classList.remove("hide-overlay");
   }
@@ -202,6 +245,10 @@ class App extends Component {
         time.innerHTML = timeText;
         row.appendChild(time);
 
+      row.setAttribute("tabindex", "0");
+      row.setAttribute("aria-atomic", "true");
+
+
         fragment.appendChild(row);
 
       })
@@ -214,6 +261,7 @@ class App extends Component {
     let displayBestImage = (image, name) => {
         let imageElement = document.querySelector(".place-image");
         let imageUrl = `${image.prefix}original${image.suffix}`;
+        imageElement.setAttribute("tabindex", "0");
         imageElement.setAttribute("src", imageUrl);
         imageElement.setAttribute("alt", `Image of ${name}`);
       }
@@ -237,6 +285,7 @@ class App extends Component {
   if(place.hasOwnProperty("name")) {
 
     document.querySelector(".place-name").innerHTML = place.name;
+    document.querySelector(".place-name").setAttribute("tabindex", "0");
   }
 
 //Set the image
@@ -244,12 +293,16 @@ class App extends Component {
     displayBestImage(place.bestPhoto, place.name);
     } else {
       document.querySelector(".best-image-container").innerHTML = "Image not available";
+      document.querySelector(".best-image-container").setAttribute("tabindex", "0");
+
     }
 
 //Set the type of the place
 if(place.hasOwnProperty("categories")) {
 
     document.querySelector(".type").innerHTML = place.categories[0].name;
+    document.querySelector(".type").setAttribute("tabindex", "0");
+
 }
 
 //Set the menu
@@ -260,32 +313,41 @@ if(place.hasOwnProperty("categories")) {
         let elemObj = elem;
         return Object.values(elemObj).includes("serves");
       })
-      if(attributeObj){
+      if(attributeObj.length>0){
       document.querySelector(".menu").innerHTML = attributeObj[0].summary;
+      document.querySelector(".menu").setAttribute("tabindex", "0");
+      document.querySelector(".menu").setAttribute("aria-label", "Menu");
     }
   }
 
 //Set the metrics
 if(place.hasOwnProperty("rating")) {
     document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
+    document.querySelector(".rating").setAttribute("tabindex", "0");
   }
   if(place.hasOwnProperty("likes")) {
 
     document.querySelector(".likes").innerHTML = `Likes: ${place.likes.count}`;
+    document.querySelector(".likes").setAttribute("tabindex", "0");
   }
   if(place.hasOwnProperty("listed")) {
 
     document.querySelector(".listed").innerHTML = `Listed: ${place.listed.count} times`;
+    document.querySelector(".listed").setAttribute("tabindex", "0");
+
   }
 
 //Set the timetable
 if(place.hasOwnProperty("popular")) {
   if(place.popular.hasOwnProperty("timeframes")){
   document.querySelector(".working-hours-text").innerHTML = "Working Hours";
+  document.querySelector(".working-hours-text").setAttribute("tabindex", "0");
   createHoursTable(place.popular.timeframes);
 }} else {
   document.querySelector(".working-hours-text").innerHTML = "Working Hours";
+  document.querySelector(".working-hours-text").setAttribute("tabindex", "0");
   let hoursContainer = document.querySelector(".working-hours");
+  hoursContainer.setAttribute("tabindex", "0");
   hoursContainer.innerHTML = "Working hours not available";
 }
 
@@ -296,6 +358,7 @@ if(place.hasOwnProperty("popular")) {
   } else {
     let addressContainer = document.querySelector(".info-window-address").innerHTML = "No address available"
   }
+
   }
 
 
@@ -306,15 +369,10 @@ console.log("queryInApp", this.state.queryInApp)
 
     return (
       <div className="App">
-
-        <BurgerMenuIcon />
-
-        <ContentsList
-        markersInList={this.placesRendered(queryInApp)}
-        updateQueryInApp={this.updateQueryInApp}
-        google={this.state.google} />
+      <ExtraInfo />
 
         <MapDisplay
+        markersToDisplay={this.placesRendered(queryInApp)}
         gotGoogle={this.state.gotGoogle}
         google={this.state.google}
         map={this.state.map} />
@@ -325,7 +383,13 @@ console.log("queryInApp", this.state.queryInApp)
         google={this.state.google}
         map={this.state.map} />
 
-        <ExtraInfo />
+        <BurgerMenuIcon />
+
+        <ContentsList
+        markersInList={this.placesRendered(queryInApp)}
+        updateQueryInApp={this.updateQueryInApp}
+        google={this.state.google} />
+
 
       </div>
     );
