@@ -26,7 +26,6 @@ clickHandler = (event) => {
 
   let text = event.target.textContent;
   let str = `[title='${text}']`;
-  console.log("STRING", str);
   let markerToActivate = document.body.querySelector(str);
   markerToActivate.dispatchEvent(new Event("click"));
 
@@ -36,7 +35,6 @@ keyPressHandler = (event) => {
   if(event.keyCode === 13){
   let text1 = event.target.querySelector("p").textContent;
   let str1 = `[title='${text1}']`
-  console.log("STRING", str1);
   let markerToActivate1 = document.body.querySelector(str1);
   markerToActivate1.dispatchEvent(new Event("click"));
 
@@ -57,20 +55,17 @@ getFocusable = () => {
 
   // arrayOfFocusableElements.push(menuIcon);
 
-  console.log(arrayOfFocusableElements);
 
   let count = arrayOfFocusableElements.length-1;
 
   let toggleAriaSelected = (i) => {
     if (0 < i && i < arrayOfFocusableElements.length) {
     let array = arrayOfFocusableElements;
-    console.log(array);
     let option = "";
     option = array[i];
-    console.log(option);
 
     if(option.hasAttribute("aria-selected")) {
-    if(option.getAttribute("aria-selected") == "true") {
+    if(option.getAttribute("aria-selected") === "true") {
       option.setAttribute("aria-selected", "false")
     } else {
       option.setAttribute("aria-selected", "true")
@@ -79,10 +74,8 @@ getFocusable = () => {
 }
     else if (i===0){
       let array = arrayOfFocusableElements;
-      console.log(array);
       let option = "";
       option = array[arrayOfFocusableElements.length -1];
-      console.log(option);
 
       option.setAttribute("aria-selected", "false")
     }
@@ -103,32 +96,28 @@ getFocusable = () => {
 
 
 
-      if(e.shiftKey && e.keyCode == 9 ) {
+      if(e.shiftKey && e.keyCode === 9 ) {
         e.preventDefault();
         if (count === 0) {
           e.preventDefault();
-          console.log(count);
           count = arrayOfFocusableElements.length -1;
           toggleAriaSelected(count+1);
           toggleAriaSelected(count);
           arrayOfFocusableElements[count].focus();
         } else {
           count = count-1;
-          console.log(count);
           toggleAriaSelected(count+1);
           toggleAriaSelected(count);
           arrayOfFocusableElements[count].focus();
         }
       } else if (count === arrayOfFocusableElements.length-1) {
             count = 0;
-            console.log(count);
             let next = arrayOfFocusableElements[count]
             toggleAriaSelected(count-1);
             toggleAriaSelected(count);
             next.focus();
           } else {
             count = count + 1;
-            console.log(count);
             toggleAriaSelected(count-1);
             toggleAriaSelected(count);
             let next = arrayOfFocusableElements[count];
@@ -201,7 +190,7 @@ render () {
 
     )}
 
-    {this.props.google && markersInList.length == 0 && (
+    {this.props.google && markersInList.length === 0 && (
 
         <li tabIndex="0">
         <p>No results!</p>

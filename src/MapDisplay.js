@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
 
 
 class MapDisplay extends Component {

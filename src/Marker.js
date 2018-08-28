@@ -43,7 +43,6 @@ class Marker extends Component {
       // })
 
       if (infowindow.marker !== marker) {
-        console.log(infowindow);
         infowindow.setContent("");
         infowindow.marker = "";
         infowindow.marker = marker;
@@ -113,7 +112,6 @@ class Marker extends Component {
         );
         // Open the infowindow on the correct marker.
         windowsArray.push(infowindow);
-        console.log("windowsArray", windowsArray);
         infowindow.open(map, marker);
       }
     };
@@ -129,7 +127,6 @@ class Marker extends Component {
           array[i].setIcon({url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"});
             }
 
-            console.log("reset", array[i])
       }
     }
 

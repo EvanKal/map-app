@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
 import MapDisplay from "./MapDisplay";
 import ContentsList from "./ContentsList";
@@ -9,6 +8,10 @@ import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from 'escape-string-regexp'
 import "./App.css";
 import "./Responsive.css";
+
+//From running npm build
+import logo from "./logo.svg";
+
 
 class App extends Component {
   state = {
@@ -166,7 +169,6 @@ class App extends Component {
   requestPlaceDetails = (id) => {
     GoogleMapsJavascriptAPI.fourSquareAPI(id)
     .then((res) => {
-      console.log(res);
       document.querySelector(".extra-info-overlay").classList.add("hide-overlay");
       this.fillExtraInfo(res);
     })
@@ -257,7 +259,6 @@ class App extends Component {
 
       })
 
-      console.log(fragment);
       hoursContainer.appendChild(fragment);
 
     }
@@ -361,7 +362,7 @@ if(place.hasOwnProperty("popular")) {
   if(place.hasOwnProperty("location")) {
     displayAddress(place.location);
   } else {
-    let addressContainer = document.querySelector(".info-window-address").innerHTML = "No address available"
+    document.querySelector(".info-window-address").innerHTML = "No address available"
   }
 
   }
@@ -371,7 +372,6 @@ if(place.hasOwnProperty("popular")) {
   render() {
     const {queryInApp} = this.state
 
-console.log("queryInApp", this.state.queryInApp)
 
     return (
       <div className="App">
