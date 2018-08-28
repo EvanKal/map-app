@@ -1,10 +1,10 @@
 .App {
-text-align: center;
-display: flex;
-flex-wrap: wrap;
-height: 100vh;
-width: 100vw;
-font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Quicksand", sans-serif;
 }
 
 .App-logo {
@@ -28,8 +28,12 @@ font-family: 'Quicksand', sans-serif;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---------------------Menu Icon-------------------- */
@@ -42,16 +46,13 @@ font-family: 'Quicksand', sans-serif;
   z-index: 2;
 }
 
-#menuToggle
-{
-
+#menuToggle {
   -webkit-user-select: none;
   user-select: none;
   transition: transform 0.5s ease;
 }
 
-#menuToggle span
-{
+#menuToggle span {
   display: block;
   width: 25px;
   height: 4px;
@@ -61,52 +62,42 @@ font-family: 'Quicksand', sans-serif;
   background: #667292;
   border-radius: 3px;
 
-  /* z-index: 2; */
-
   transform-origin: 4px 0px;
 
-  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-              opacity 0.55s ease;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
 }
 
-#menuToggle span:first-child
-{
+#menuToggle span:first-child {
   transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2)
-{
+#menuToggle span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
 
 /* Transform the shape to an X */
 
-.x-icon #menuToggle
-{
+.x-icon #menuToggle {
   transform: translate(160px);
 }
 
-.x-icon #menuToggle  span
-{
+.x-icon #menuToggle span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: #667292;
 }
 
-.x-icon #menuToggle span:nth-last-child(2)
-{
+.x-icon #menuToggle span:nth-last-child(2) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-.x-icon #menuToggle span:nth-last-child(1)
-{
+.x-icon #menuToggle span:nth-last-child(1) {
   transform: rotate(-45deg) translate(0, -5px);
 }
 
-.x-icon #menuToggle span:nth-last-child(3)
-{
+.x-icon #menuToggle span:nth-last-child(3) {
   transform: rotate(45deg) translate(0, -1px);
 }
 
@@ -117,177 +108,160 @@ font-family: 'Quicksand', sans-serif;
   display: flex;
   flex-wrap: wrap;
   /* margin: 0px; */
-    height: 100%;
-    width: 70%;
-  }
+  height: 100%;
+  width: 70%;
+}
 
 .App .mapContainer #map {
   /* margin: 0px; */
-    height: 100%;
-    width: 100%;
-  }
+  height: 100%;
+  width: 100%;
+}
 
-
-
-.App .mapContainer .gm-style-mtc{
+.App .mapContainer .gm-style-mtc {
   left: 40px;
   top: -2px;
-  }
+}
 
-  .App  #pano {
-    margin: auto;
-      width: 150px;
-      height: 150px;
-    }
+.App #pano {
+  margin: auto;
+  width: 150px;
+  height: 150px;
+}
 
+.App #pano .gm-style {
+  margin: auto;
+  width: 150px;
+  height: 150px;
+}
 
-  .App  #pano .gm-style{
-    margin: auto;
-      width: 150px;
-      height: 150px;
-    }
+.App #map .map-overlay {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #daebe8;
+  opacity: 0.5;
+}
 
-    .App #map .map-overlay {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      background: #daebe8;
-      opacity: 0.5;
-    }
-
-    .App #map .map-overlay-text {
-      width: 100%;
-      text-align: center;
-      color: #667292;
-      font-weight: bold;
-
-    }
-
-
-
+.App #map .map-overlay-text {
+  width: 100%;
+  text-align: center;
+  color: #667292;
+  font-weight: bold;
+}
 
 /* ---------------------Contents div-------------------- */
 
 .App .contents-list {
-  /* margin: 0px; */
   visibility: hidden;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-    position: absolute;
-    z-index: 1;
-    left: -200px;
-    height: 100vh;
-    width: 200px;
-    background: #daebe8;
-    transition: transform 0.5s ease;
-    box-sizing: border-box;
-    color: #667292;
-  }
-
-  .App .contents-list input{
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    padding-left: 10px;
-    width: 100%;
-    height: 5%;
-    padding-top: 10px;
-    font-size: 1.2vw;
+  position: absolute;
+  z-index: 1;
+  left: -200px;
+  height: 100vh;
+  width: 200px;
+  background: #daebe8;
+  transition: transform 0.5s ease;
+  box-sizing: border-box;
+  color: #667292;
 }
 
-  .App .contents-list input:focus{
-    border: 2px solid #b7d7e8;
+.App .contents-list input {
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding-left: 10px;
+  width: 100%;
+  height: 5%;
+  padding-top: 10px;
+  font-size: 1.2vw;
 }
 
-  .App .contents-list h1{
-    width: 100%;
-    height: 15%;
-    margin: 0;
-    padding-top: 25px;
-    box-sizing: border-box;
-    text-align: left;
-    font-size: 3vw;
-
+.App .contents-list input:focus {
+  border: 2px solid #b7d7e8;
 }
 
-.App .move{
+.App .contents-list h1 {
+  width: 100%;
+  height: 15%;
+  margin: 0;
+  padding-top: 25px;
+  box-sizing: border-box;
+  text-align: left;
+  font-size: 3vw;
+}
+
+.App .move {
   visibility: visible;
-transform: translate(200px);
-  }
+  transform: translate(200px);
+}
 
 .App .markers-in-list {
   width: 100%;
   height: 80%;
-  }
+}
 
 .App .list {
   padding: 0;
   list-style-type: none;
-  }
+}
 
 .App .list p {
   margin: 0;
   font-size: 1.5vw;
-  }
+}
 
-.App .list li{
+.App .list li {
   padding: 10px 0 10px 0;
-  }
+}
 
 .App .list li:hover {
-  /* width: 100%;
-  height: 80%;*/
   border-top: 1px solid #667292;
   border-bottom: 1px solid #667292;
-  }
+}
 
-.App .list p{
+.App .list p {
   text-align: left;
   padding-left: 10px;
-  }
-
-
-
+}
 
 /* ---------------------ExtraInfo div-------------------- */
 .App .extra-info {
-    order: 1;
-  /* margin: 0; */
-    height: 100vh;
-    width: 30%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    background: #667292;
-    color: #daebe8;
-  }
-
-  .App .extra-info-subcontainer {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    position:relative;
-    font-size: 1.8vw;
-
-
+  order: 1;
+  height: 100vh;
+  width: 30%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  background: #667292;
+  color: #daebe8;
 }
 
-.App .extra-info .app-title-container{
+.App .extra-info-subcontainer {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
+  font-size: 1.8vw;
+}
+
+.App .extra-info .app-title-container {
   width: 100%;
   height: 10%;
   box-sizing: border-box;
   margin: 0;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   display: flex;
-align-items: center;
+  align-items: center;
 }
 
-.App .extra-info .app-title{
+.App .extra-info .app-title {
   margin: 0;
   width: 100%;
   text-align: center;
@@ -296,21 +270,16 @@ align-items: center;
   text-decoration: none;
 }
 
-.App .extra-info .app-title:hover{
+.App .extra-info .app-title:hover {
   text-decoration: underline;
 }
 
-.App .extra-info .app-title-container h1{
+.App .extra-info .app-title-container h1 {
   margin: 0;
   width: 100%;
-  /* text-align: center;
-  font-size: 4vw;
-  color: inherit;
-  text-decoration: none; */
 }
 
-
-.App .extra-info .place-name-container{
+.App .extra-info .place-name-container {
   width: 100%;
   height: 10%;
   box-sizing: border-box;
@@ -320,30 +289,20 @@ align-items: center;
   background-repeat: no-repeat;
   background-size: 3vw;
   background-position: right top;
-
 }
 
-.App .extra-info .place-name-container-hidden{
-  /* width: 100%;
-  height: 10%;
-  box-sizing: border-box;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-size: 10%;
-  background-position: right top; */
-  background-size: 0%;
+.App .extra-info .place-name-container-hidden {
+  background-size: 0vw;
 }
 
-.App .extra-info .place-name{
+.App .extra-info .place-name {
   margin: 0;
   width: 100%;
   text-align: center;
   font-size: 2.5vw;
 }
 
-.App .extra-info .helping-image-container{
+.App .extra-info .helping-image-container {
   display: block;
   /* padding: 5px; */
   width: 100%;
@@ -354,7 +313,7 @@ align-items: center;
   margin: 0;
 }
 
-.App .extra-info .best-image-container{
+.App .extra-info .best-image-container {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -362,7 +321,7 @@ align-items: center;
   margin: 0;
 }
 
-.App .extra-info .best-image-container img{
+.App .extra-info .best-image-container img {
   object-fit: contain;
   border-radius: 10px;
   width: 100%;
@@ -371,39 +330,37 @@ align-items: center;
   opacity: 0.9;
 }
 
-.App .extra-info .type-container{
+.App .extra-info .type-container {
   width: 100%;
   height: 7%;
   box-sizing: border-box;
   margin: 0;
   display: flex;
   align-items: center;
-
 }
 
-.App .extra-info .type{
+.App .extra-info .type {
   margin: 0;
   width: 100%;
   text-align: center;
 }
 
-.App .extra-info .menu-container{
+.App .extra-info .menu-container {
   width: 100%;
   height: 7%;
   box-sizing: border-box;
   margin: 0;
   display: flex;
   align-items: center;
-
 }
 
-.App .extra-info .menu{
+.App .extra-info .menu {
   margin: 0;
   width: 100%;
   text-align: center;
 }
 
-.App .extra-info .metrics{
+.App .extra-info .metrics {
   width: 100%;
   height: 6%;
   box-sizing: border-box;
@@ -413,20 +370,15 @@ align-items: center;
   font-size: 1.4vw;
   background: #daebe8;
   color: #667292;
-  /* padding-top: -2px;
-  padding-bottom: -5px; */
-  /* margin-top: 0.5%;
-  margin-bottom: 0.5%; */
 }
 
-.App .extra-info .metrics p{
+.App .extra-info .metrics p {
   width: 33.3%;
   text-align: center;
   margin: 0;
-
 }
 
-.App .working-hours-container{
+.App .working-hours-container {
   width: 100%;
   height: 40%;
   box-sizing: border-box;
@@ -436,7 +388,7 @@ align-items: center;
   align-items: center;
 }
 
-.App .working-hours-container p{
+.App .working-hours-container p {
   width: 100%;
   height: 10%;
   text-align: center;
@@ -448,49 +400,17 @@ align-items: center;
 .App .working-hours-container .table-container {
   height: 90%;
   width: 100%;
-  /* height: 100%; */
-  /* display: flex;
-  flex-wrap: wrap; */
-  /* height: 10%; */
   box-sizing: border-box;
-  /* margin: 0;
-  display: flex;
-  align-items: center; */
   font-size: 1.4vw;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 
 .App .working-hours {
   width: 100%;
   height: 100%;
-  /* display: flex;
-  flex-wrap: wrap; */
-  /* height: 10%; */
-  /* box-sizing: border-box; */
-  /* margin: 0;
-  display: flex;
-  align-items: center; */
 }
 
-
-
-/* .App .working-hours tr{
-  width: 100%;
-} */
-
-.App .working-hours tr td{
-  /* width:0.1%;
-  white-space: nowrap; */
-
-  /* padding: 0; */
-  /* width: 100%; */
-}
-  /* td {
-width:0.1%;
-white-space: nowrap;
-} */
-
-.App .extra-info .extra-info-overlay{
+.App .extra-info .extra-info-overlay {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -501,15 +421,12 @@ white-space: nowrap;
   flex-wrap: wrap;
   align-items: center;
   visibility: visible;
-
-  /* display: none; */
 }
 
-.App .extra-info .extra-info-overlay .overlay-text{
+.App .extra-info .extra-info-overlay .overlay-text {
   width: 100%;
   color: #667292;
   font-weight: bold;
-
 }
 
 .App .extra-info .hide-overlay {
@@ -518,39 +435,39 @@ white-space: nowrap;
 }
 
 /* ---------------Info Window--------------- */
-.App  .info-window-container {
+.App .info-window-container {
   display: flex;
   flex-wrap: wrap;
   width: 300px;
   height: 150px;
-  }
+}
 
-.App  .name-address-container {
+.App .name-address-container {
   display: flex;
   flex-wrap: wrap;
   order: 2;
   width: 50%;
   height: 150px;
   font-weight: bold;
-  }
+}
 
-.App  .info-window-marker-title {
+.App .info-window-marker-title {
   padding-top: 5px;
-    width: 100%;
-    height: 20%;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  height: 20%;
+  box-sizing: border-box;
+}
 
-.App  .info-window-address {
+.App .info-window-address {
   padding-top: 20px;
-    width: 100%;
-    height: 80%;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  height: 80%;
+  box-sizing: border-box;
+}
 
-.App  .streetview-container {
+.App .streetview-container {
   order: 1;
   margin: auto;
-    width: 50%;
-    height: auto;
-  }
+  width: 50%;
+  height: auto;
+}

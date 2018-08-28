@@ -5,13 +5,12 @@ import ContentsList from "./ContentsList";
 import ExtraInfo from "./ExtraInfo";
 import Marker from "./Marker";
 import BurgerMenuIcon from "./BurgerMenuIcon";
-import escapeRegExp from 'escape-string-regexp'
+import escapeRegExp from "escape-string-regexp";
 import "./App.css";
 import "./Responsive.css";
 
 //From running npm build
 import logo from "./logo.svg";
-
 
 class App extends Component {
   state = {
@@ -42,7 +41,7 @@ class App extends Component {
         name: "SPOLLATI",
         placeID: "ChIJvR6Zyzy9oRQR8uUVFK6LxnI",
         venueID: "51fac8e4498e8efa6e342d0d",
-        position: { lat: 37.9774696, lng: 23.7277225}
+        position: { lat: 37.9774696, lng: 23.7277225 }
       },
       {
         name: "Dióskouroi",
@@ -51,32 +50,9 @@ class App extends Component {
         position: { lat: 37.973493, lng: 23.725295 }
       }
     ]
-
-    // places: [
-    //   {name:"Yasemi", placeID: "ChIJRYyc_he9oRQR6_ZAlXl2sQo", position:{lat: 37.9748486, lng: 23.7267974}},
-    //   {name:"Couleur Locale", placeID: "ChIJYzvSVSK9oRQRTEIOJt4Ka48", position:{lat: 37.9754321, lng: 23.7257031}},
-    //   {name:"Psyrra", placeID: "ChIJ7e4WDiO9oRQRoIthg-iTr4g", position:{lat: 37.9779004, lng: 23.7253016}},
-    //   {name:"SPOLLATI", placeID: "ChIJvR6Zyzy9oRQR8uUVFK6LxnI", position:{lat: 37.9777605, lng: 23.7276444}},
-    //   {name:"Dióskouroi", placeID: "ChIJFyp7ZRi9oRQRV2-Jz58hYJ4", position:{lat: 37.973493, lng: 23.725295}}
-    // ]
   };
-  // <div id="map"></div>
-  // <script>
-  //   var map;
-  //   function initMap() {
-  //     map = new google.maps.Map(document.getElementById('map'), {
-  //       center: {lat: -34.397, lng: 150.644},
-  //       zoom: 8
-  //     });
-  //   }
-  // </script>
-  // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo&callback=initMap"
-  // async defer></script>
 
   componentDidMount() {
-    // document.addEventListener("click", (event) => {
-    //   console.log(event.target) ;
-    // })
     this.resetExtraInfo();
     GoogleMapsJavascriptAPI.getAPI()
       .then(res => {
@@ -84,131 +60,100 @@ class App extends Component {
       })
       .then(() => {
         this.setState(() => {
-          let google = window.google
+          let google = window.google;
           let map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 37.975543, lng: 23.734851 },
             zoom: 8,
             mapTypeControlOptions: {
-              mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',
-                      'styled_map']
+              mapTypeIds: [
+                "roadmap",
+                "satellite",
+                "hybrid",
+                "terrain",
+                "styled_map"
+              ]
             }
-
-          })
-          return {google: google, map: map, gotGoogle: true};
+          });
+          return { google: google, map: map, gotGoogle: true };
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        this.mapOverlay();
+        this.extraInfoOverlay();
       });
-    })
-    .catch((error) => {
-      console.log(error);
-      this.mapOverlay();
-      this.extraInfoOverlay();
-    })
   }
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     if(this.state.google !== prevState.google) {
-  // }
-  //
-  // }
-
-//   accessibility = () => {
-//   document.querySelector(".App").addEventListener("load", () => {
-// // banner
-//   let banner = document.querySelector(".app-title-container");
-//   banner.focus();
-//
-//   banner.setAttribute("role", "banner");
-//   banner.setAttribute("tabindex", "0");
-//   // banner.querySelector("h1").setAttribute("tabindex", "-1");
-//   banner.querySelector("a").setAttribute("tabindex", "0");
-//
-//
-//   banner.querySelector("a").addEventListener("keyup", (event) => {
-//     console.log(event.code);
-//     document.querySelector(".menu-icon-container").focus();
-//   })
-//
-// //Menu icon
-//
-//   let menuIcon = document.querySelector(".menu-icon-container");
-//   menuIcon.setAttribute("tabindex", "0");
-//
-//
-//
-//
-//
-// })
-// }
-
-  createScriptTag = (content) => {
+  createScriptTag = content => {
     let scriptTag = document.createElement("script");
     scriptTag.setAttribute("type", "text/javascript");
     scriptTag.innerHTML = content;
     document.querySelector("body").appendChild(scriptTag);
   };
 
-  updateQueryInApp = (query) => {
+  updateQueryInApp = query => {
     this.setState({ queryInApp: query });
     this.resetExtraInfo();
-  }
+  };
 
-  placesRendered = (query) => {
-    // if(this.state.google){
+  placesRendered = query => {
     let placesArray = [];
-    if(query) {
-      const match = new RegExp(escapeRegExp(query), 'i')
-  placesArray = this.state.places.filter((place) => match.test(place.name));
-  return placesArray;
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), "i");
+      placesArray = this.state.places.filter(place => match.test(place.name));
+      return placesArray;
     } else {
       return this.state.places;
     }
-  // } else {
-  //   return [];
-  // }
-  }
+  };
 
-  requestPlaceDetails = (id) => {
+  requestPlaceDetails = id => {
     GoogleMapsJavascriptAPI.fourSquareAPI(id)
-    .then((res) => {
-      document.querySelector(".extra-info-overlay").classList.add("hide-overlay");
-      this.fillExtraInfo(res);
-    })
-    .catch((error)=> {
-      console.log(error);
-      this.extraInfoOverlay();
-    })
-  }
+      .then(res => {
+        document
+          .querySelector(".extra-info-overlay")
+          .classList.add("hide-overlay");
+        this.fillExtraInfo(res);
+      })
+      .catch(error => {
+        console.log(error);
+        this.extraInfoOverlay();
+      });
+  };
 
   mapOverlay = () => {
     let mapOverlay = document.createElement("div");
     let mapOverlayText = document.createElement("p");
-    mapOverlayText.innerHTML = "Network Error! Failed to retrieve map."
+    mapOverlayText.innerHTML = "Network Error! Failed to retrieve map.";
 
     mapOverlay.setAttribute("class", "map-overlay");
     mapOverlayText.setAttribute("class", "map-overlay-text");
 
     mapOverlay.appendChild(mapOverlayText);
     document.querySelector("#map").appendChild(mapOverlay);
-  }
+  };
 
   extraInfoOverlay = () => {
     this.resetExtraInfo();
     let extraInfoOverlay = document.querySelector(".extra-info-overlay");
     extraInfoOverlay.classList.remove("hide-overlay");
-    extraInfoOverlay.querySelector(".overlay-text").innerHTML = `Network Error! Nothing to display...`;
-
-  }
+    extraInfoOverlay.querySelector(
+      ".overlay-text"
+    ).innerHTML = `Network Error! Nothing to display...`;
+  };
 
   resetExtraInfo = () => {
     document.querySelector(".place-name").innerHTML = "";
     document.querySelector(".place-name").removeAttribute("tabindex");
     document.querySelector(".place-name").removeAttribute("tabindex");
-    document.querySelector(".place-name-container").classList.toggle("place-name-container-hidden");
-    // document.querySelector(".place-name-container").classList.toggle(".place-name-container");
+    document
+      .querySelector(".place-name-container")
+      .classList.toggle("place-name-container-hidden");
 
-    if(document.querySelector(".place-image").hasAttribute("src")) {
-    document.querySelector(".place-image").removeAttribute("src");
-    document.querySelector(".place-image").removeAttribute("alt");
-    document.querySelector(".place-image").removeAttribute("tabindex");
+    if (document.querySelector(".place-image").hasAttribute("src")) {
+      document.querySelector(".place-image").removeAttribute("src");
+      document.querySelector(".place-image").removeAttribute("alt");
+      document.querySelector(".place-image").removeAttribute("tabindex");
     }
     document.querySelector(".type").innerHTML = "";
     document.querySelector(".type").removeAttribute("tabindex");
@@ -225,178 +170,181 @@ class App extends Component {
     document.querySelector(".working-hours").innerHTML = "";
     document.querySelector(".working-hours").removeAttribute("tabindex");
     document.querySelector(".overlay-text").innerHTML = `Click on a marker!`;
-    document.querySelector(".extra-info-overlay").classList.remove("hide-overlay");
-  }
+    document
+      .querySelector(".extra-info-overlay")
+      .classList.remove("hide-overlay");
+  };
 
-  fillExtraInfo = (place) => {
+  fillExtraInfo = place => {
     if (place) {
+      let createHoursTable = array => {
+        let hoursContainer = document.querySelector(".working-hours");
+        hoursContainer.innerHTML = "";
+        let fragment = document.createDocumentFragment();
 
-    let createHoursTable = (array) => {
-      let hoursContainer = document.querySelector(".working-hours");
-      hoursContainer.innerHTML = "";
-      let fragment = document.createDocumentFragment();
+        array.forEach(elem => {
+          let row = document.createElement("tr");
 
-      array.forEach((elem) => {
-        let row = document.createElement("tr");
+          const day = document.createElement("td");
+          day.innerHTML = elem.days;
+          row.appendChild(day);
 
-        const day = document.createElement('td');
-        day.innerHTML = elem.days;
-        row.appendChild(day);
+          const time = document.createElement("td");
+          let timeText = "";
+          elem.open.forEach(hour => {
+            timeText = timeText + hour.renderedTime;
+          });
+          time.innerHTML = timeText;
+          row.appendChild(time);
 
-        const time = document.createElement('td');
-        let timeText = "";
-        elem.open.forEach((hour) => {
-          timeText = timeText + hour.renderedTime;
-        })
-        time.innerHTML = timeText;
-        row.appendChild(time);
+          row.setAttribute("tabindex", "0");
+          row.setAttribute("aria-atomic", "true");
 
-      row.setAttribute("tabindex", "0");
-      row.setAttribute("aria-atomic", "true");
+          fragment.appendChild(row);
+        });
 
+        hoursContainer.appendChild(fragment);
+      };
 
-        fragment.appendChild(row);
-
-      })
-
-      hoursContainer.appendChild(fragment);
-
-    }
-
-    let displayBestImage = (image, name) => {
+      let displayBestImage = (image, name) => {
         let imageElement = document.querySelector(".place-image");
         let imageUrl = `${image.prefix}original${image.suffix}`;
         imageElement.setAttribute("tabindex", "0");
         imageElement.setAttribute("src", imageUrl);
         imageElement.setAttribute("alt", `Image of ${name}`);
+      };
+
+      let displayAddress = address => {
+        let addressContainer = document.querySelector(".info-window-address");
+
+        if (document.body.contains(addressContainer)) {
+          let addressText = "";
+
+          address.formattedAddress.forEach(elem => {
+            addressText = `${addressText} ${elem}`;
+          });
+
+          addressContainer.innerHTML = addressText;
+        }
+      };
+
+      //Set the name
+      if (place.hasOwnProperty("name")) {
+        document.querySelector(".place-name").innerHTML = place.name;
+        document.querySelector(".place-name").setAttribute("tabindex", "0");
+        document
+          .querySelector(".place-name-container")
+          .classList.toggle("place-name-container-hidden");
       }
 
-    let displayAddress = (address) => {
-      let addressContainer = document.querySelector(".info-window-address");
+      //Set the image
+      if (place.hasOwnProperty("bestPhoto")) {
+        displayBestImage(place.bestPhoto, place.name);
+      } else {
+        document.querySelector(".best-image-container").innerHTML =
+          "Image not available";
+        document
+          .querySelector(".best-image-container")
+          .setAttribute("tabindex", "0");
+      }
 
-      if (document.body.contains(addressContainer)){
-      let addressText = "";
+      //Set the type of the place
+      if (place.hasOwnProperty("categories")) {
+        document.querySelector(".type").innerHTML = place.categories[0].name;
+        document.querySelector(".type").setAttribute("tabindex", "0");
+      }
 
-      address.formattedAddress.forEach((elem) => {
-        addressText = `${addressText} ${elem}`
-      })
+      //Set the menu
+      if (place.hasOwnProperty("attributes")) {
+        let attributeObj;
+        attributeObj = place.attributes.groups.filter(elem => {
+          let elemObj = elem;
+          return Object.values(elemObj).includes("serves");
+        });
+        if (attributeObj.length > 0) {
+          document.querySelector(".menu").innerHTML = attributeObj[0].summary;
+          document.querySelector(".menu").setAttribute("tabindex", "0");
+        }
+      }
 
-      addressContainer.innerHTML = addressText;
+      //Set the metrics
+      if (place.hasOwnProperty("rating")) {
+        document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
+        document.querySelector(".rating").setAttribute("tabindex", "0");
+      }
+      if (place.hasOwnProperty("likes")) {
+        document.querySelector(".likes").innerHTML = `Likes: ${
+          place.likes.count
+        }`;
+        document.querySelector(".likes").setAttribute("tabindex", "0");
+      }
+      if (place.hasOwnProperty("listed")) {
+        document.querySelector(".listed").innerHTML = `Listed: ${
+          place.listed.count
+        } times`;
+        document.querySelector(".listed").setAttribute("tabindex", "0");
+      }
+
+      //Set the timetable
+      if (place.hasOwnProperty("popular")) {
+        if (place.popular.hasOwnProperty("timeframes")) {
+          document.querySelector(".working-hours-text").innerHTML =
+            "Working Hours";
+          document
+            .querySelector(".working-hours-text")
+            .setAttribute("tabindex", "0");
+          createHoursTable(place.popular.timeframes);
+        }
+      } else {
+        document.querySelector(".working-hours-text").innerHTML =
+          "Working Hours";
+        document
+          .querySelector(".working-hours-text")
+          .setAttribute("tabindex", "0");
+        let hoursContainer = document.querySelector(".working-hours");
+        hoursContainer.setAttribute("tabindex", "0");
+        hoursContainer.innerHTML = "Working hours not available";
+      }
+
+      //Set address in Info InfoWindow
+
+      if (place.hasOwnProperty("location")) {
+        displayAddress(place.location);
+      } else {
+        document.querySelector(".info-window-address").innerHTML =
+          "No address available";
+      }
     }
-    }
-
-
-//Set the name
-  if(place.hasOwnProperty("name")) {
-
-    document.querySelector(".place-name").innerHTML = place.name;
-    document.querySelector(".place-name").setAttribute("tabindex", "0");
-    document.querySelector(".place-name-container").classList.togle("place-name-container-hidden");
-    // document.querySelector(".place-name-container").classList.toggle("place-name-container");
-  }
-
-//Set the image
-    if(place.hasOwnProperty("bestPhoto")) {
-    displayBestImage(place.bestPhoto, place.name);
-    } else {
-      document.querySelector(".best-image-container").innerHTML = "Image not available";
-      document.querySelector(".best-image-container").setAttribute("tabindex", "0");
-
-    }
-
-//Set the type of the place
-if(place.hasOwnProperty("categories")) {
-
-    document.querySelector(".type").innerHTML = place.categories[0].name;
-    document.querySelector(".type").setAttribute("tabindex", "0");
-
-}
-
-//Set the menu
-    if(place.hasOwnProperty("attributes"))
-    {
-      let attributeObj;
-      attributeObj = place.attributes.groups.filter((elem) => {
-        let elemObj = elem;
-        return Object.values(elemObj).includes("serves");
-      })
-      if(attributeObj.length>0){
-      document.querySelector(".menu").innerHTML = attributeObj[0].summary;
-      document.querySelector(".menu").setAttribute("tabindex", "0");
-    }
-  }
-
-//Set the metrics
-if(place.hasOwnProperty("rating")) {
-    document.querySelector(".rating").innerHTML = `Rating: ${place.rating}`;
-    document.querySelector(".rating").setAttribute("tabindex", "0");
-  }
-  if(place.hasOwnProperty("likes")) {
-
-    document.querySelector(".likes").innerHTML = `Likes: ${place.likes.count}`;
-    document.querySelector(".likes").setAttribute("tabindex", "0");
-  }
-  if(place.hasOwnProperty("listed")) {
-
-    document.querySelector(".listed").innerHTML = `Listed: ${place.listed.count} times`;
-    document.querySelector(".listed").setAttribute("tabindex", "0");
-
-  }
-
-//Set the timetable
-if(place.hasOwnProperty("popular")) {
-  if(place.popular.hasOwnProperty("timeframes")){
-  document.querySelector(".working-hours-text").innerHTML = "Working Hours";
-  document.querySelector(".working-hours-text").setAttribute("tabindex", "0");
-  createHoursTable(place.popular.timeframes);
-}} else {
-  document.querySelector(".working-hours-text").innerHTML = "Working Hours";
-  document.querySelector(".working-hours-text").setAttribute("tabindex", "0");
-  let hoursContainer = document.querySelector(".working-hours");
-  hoursContainer.setAttribute("tabindex", "0");
-  hoursContainer.innerHTML = "Working hours not available";
-}
-
-//Set address in Info InfoWindow
-
-  if(place.hasOwnProperty("location")) {
-    displayAddress(place.location);
-  } else {
-    document.querySelector(".info-window-address").innerHTML = "No address available"
-  }
-
-  }
-}
-
+  };
 
   render() {
-    const {queryInApp} = this.state
-
+    const { queryInApp } = this.state;
 
     return (
       <div className="App">
-      <ExtraInfo />
+        <ExtraInfo />
 
         <MapDisplay
-        markersToDisplay={this.placesRendered(queryInApp)}
-        gotGoogle={this.state.gotGoogle}
-        google={this.state.google}
-        map={this.state.map} />
+          markersToDisplay={this.placesRendered(queryInApp)}
+          gotGoogle={this.state.gotGoogle}
+          google={this.state.google}
+          map={this.state.map}
+        />
 
         <Marker
-        markersToDisplay={this.placesRendered(queryInApp)}
-        requestPlaceDetails={this.requestPlaceDetails}
-        google={this.state.google}
-        map={this.state.map} />
+          markersToDisplay={this.placesRendered(queryInApp)}
+          requestPlaceDetails={this.requestPlaceDetails}
+          google={this.state.google}
+          map={this.state.map}
+        />
 
         <BurgerMenuIcon />
 
         <ContentsList
-        markersInList={this.placesRendered(queryInApp)}
-        updateQueryInApp={this.updateQueryInApp}
-        google={this.state.google} />
-
-
+          markersInList={this.placesRendered(queryInApp)}
+          updateQueryInApp={this.updateQueryInApp}
+          google={this.state.google}
+        />
       </div>
     );
   }

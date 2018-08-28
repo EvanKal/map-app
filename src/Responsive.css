@@ -4,7 +4,6 @@
   }
 
   .App .mapContainer {
-    /* position: absolute; */
     height: 90vh;
     width: 100%;
   }
@@ -27,6 +26,10 @@
 
 .App .extra-info .place-name-container {
   background-size: 6vw;
+}
+
+.App .extra-info .place-name-container-hidden {
+  background-size: 0vw;
 }
 
 .App .extra-info-subcontainer {
@@ -62,7 +65,6 @@ font-size: 3.5vw;
   }
 
   .App .mapContainer {
-    /* position: absolute; */
     height: 90vh;
     width: 100%;
   }
@@ -85,6 +87,10 @@ font-size: 3.5vw;
 
 .App .extra-info .place-name-container {
   background-size: 5vw;
+}
+
+.App .extra-info .place-name-container-hidden {
+  background-size: 0vw;
 }
 
 .App .extra-info-subcontainer {
