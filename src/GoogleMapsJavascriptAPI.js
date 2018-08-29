@@ -1,8 +1,7 @@
 const api = "https://maps.googleapis.com/maps/api";
 
 // const headers = {
-//   key: "AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo",
-//   libraries: "geometry,places"
+//   "Access-Control-Allow-Origin": "*",
 // };
 
 export const getAPI = () =>

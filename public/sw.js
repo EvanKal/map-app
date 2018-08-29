@@ -6,7 +6,9 @@ self.addEventListener("fetch", function(event) {
   event.respondWith(
     // First check for a match of the request in the cache
     caches.match(event.request).then(function(response) {
-      // if there is a match then respond with matched request from cache
+      // if there is a match, if the match is not of the foursquare api
+       // then respond with matched request from cache, else fetch from network
+       //so that the info is updated
       if (response)
       {
 
@@ -27,7 +29,6 @@ self.addEventListener("fetch", function(event) {
       // request wouldn't get matched in the cache when offline...
       else {
         let requestClone = event.request.clone();
-        console.log(requestClone);
 
         return fetch(requestClone).then(function(response) {
           if (!response) {
