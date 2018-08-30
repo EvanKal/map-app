@@ -8,6 +8,8 @@ import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from "escape-string-regexp";
 import "./App.css";
 import "./Responsive.css";
+// import access from 'access-control';
+// import * as http from 'http';
 
 //From running npm build
 import logo from "./logo.svg";
@@ -52,10 +54,29 @@ class App extends Component {
     ]
   };
 
+  // allowCors = () => {
+  //   var express = require('express')
+  //   var cors = require('cors')
+  //   var app = express()
+  //
+  //   app.use(cors())
+  //
+  //   app.get('/products/:id', function (req, res, next) {
+  //     res.json({msg: 'This is CORS-enabled for all origins!'})
+  //   })
+  //
+  //   app.listen(80, function () {
+  //     console.log('CORS-enabled web server listening on port 80')
+  //   })
+  //   }
+
+
   componentDidMount() {
     this.resetExtraInfo();
+    // this.allowCors();
     GoogleMapsJavascriptAPI.getAPI()
       .then(res => {
+        console.log(res);
         this.createScriptTag(res);
       })
       .then(() => {
