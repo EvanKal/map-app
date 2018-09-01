@@ -49,6 +49,7 @@ class Marker extends Component {
               infowindow.setContent("");
               infowindow.marker = null;
             });
+
           }
 
           // let streetViewService = new google.maps.StreetViewService();
@@ -153,7 +154,6 @@ class Marker extends Component {
           resetMarkers(markersArray);
           toggleBounce(marker);
           populateInfoWindow(marker, largeInfowindow);
-
           requestVenue(elem.venueID);
         });
 

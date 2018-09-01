@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as GoogleMapsJavascriptAPI from "./GoogleMapsJavascriptAPI";
+import * as AthenianAPIs from "./AthenianAPIs";
 import MapDisplay from "./MapDisplay";
 import ContentsList from "./ContentsList";
 import ExtraInfo from "./ExtraInfo";
@@ -8,8 +8,6 @@ import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from "escape-string-regexp";
 import "./App.css";
 import "./Responsive.css";
-// import access from 'access-control';
-// import * as http from 'http';
 
 //From running npm build
 import logo from "./logo.svg";
@@ -54,32 +52,10 @@ class App extends Component {
     ]
   };
 
-  // allowCors = () => {
-  //   var express = require('express')
-  //   var cors = require('cors')
-  //   var app = express()
-  //
-  //   app.use(cors())
-  //
-  //   app.get('/products/:id', function (req, res, next) {
-  //     res.json({msg: 'This is CORS-enabled for all origins!'})
-  //   })
-  //
-  //   app.listen(80, function () {
-  //     console.log('CORS-enabled web server listening on port 80')
-  //   })
-  //   }
-
-
   componentDidMount() {
     this.resetExtraInfo();
-    // this.allowCors();
-    GoogleMapsJavascriptAPI.getAPI()
-      .then(res => {
-        console.log(res);
-        this.createScriptTag(res);
-      })
-      .then(() => {
+    console.log("mounted")
+      if(window.google) {
         this.setState(() => {
           let google = window.google;
           let map = new google.maps.Map(document.getElementById("map"), {
@@ -97,20 +73,11 @@ class App extends Component {
           });
           return { google: google, map: map, gotGoogle: true };
         });
-      })
-      .catch(error => {
-        console.log(error);
-        this.mapOverlay();
-        this.extraInfoOverlay();
-      });
+      } else {
+          this.mapOverlay();
+          this.extraInfoOverlay();
+      }
   }
-
-  createScriptTag = content => {
-    let scriptTag = document.createElement("script");
-    scriptTag.setAttribute("type", "text/javascript");
-    scriptTag.innerHTML = content;
-    document.querySelector("body").appendChild(scriptTag);
-  };
 
   updateQueryInApp = query => {
     this.setState({ queryInApp: query });
@@ -129,7 +96,7 @@ class App extends Component {
   };
 
   requestPlaceDetails = id => {
-    GoogleMapsJavascriptAPI.fourSquareAPI(id)
+    AthenianAPIs.fourSquareAPI(id)
       .then(res => {
         document
           .querySelector(".extra-info-overlay")
