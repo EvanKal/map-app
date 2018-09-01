@@ -30,12 +30,21 @@ self.addEventListener("fetch", function(event) {
       else {
         let requestClone = event.request.clone();
 
+
         return fetch(requestClone).then(function(response) {
           if (!response) {
             return response;
           }
 
           let responseClone = response.clone();
+
+    // let responseClone1 = response.clone();
+    // let bod = responseClone1.body;
+    // let bod1 = bod.json();
+    // console.log(bod);
+
+
+
           return caches.open(cacheName).then(function(cache) {
             cache.put(event.request, responseClone);
             return response;
