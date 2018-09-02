@@ -1,4 +1,4 @@
-let staticCacheName = "athenianCache12";
+let staticCacheName = "athenianCache11";
 
 self.addEventListener("install", function(event) {
   event.waitUntil(

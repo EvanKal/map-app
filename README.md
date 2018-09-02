@@ -5,9 +5,10 @@ places to eat and grab a snack in Athens. The app has been devoloped using REACT
 
 ## Install
 
-* install all project dependencies with `npm install`
+* Install all project dependencies with `npm install`
   ** All dependencies will be automatically installed through the package.json file
-* start the development server with `npm start`
+* Start the development server with `npm start`
+* View the production version of the app by serving the files in the build directory to your browser. This is where the service worker may be tested.
 
 ## Third Party API
 
@@ -19,4 +20,10 @@ The page has a different display pattern than that of the DOM tree. The DOM tree
 
 ## Service worker
 
-The page utilizes a custom service worker. The file has been created by the build proccess, but it has been fully customized. The Sw caches all the static affordances of the site as well as requests&response pairs to the Foursquare venues API, so that the info is available offline. The map is not being cached due to heavy load on the cache.
+The page utilizes a custom service worker. The Sw caches all the static affordances of the site as well as requests&response pairs to the Foursquare venues API, so that the info is available offline. The map is not being cached due to heavy load on the cache.
+
+##Testing the Service worker
+
+In order to test the SW local serve the files in build directory. Make sure you test the service worker in a new Incognito Window and that no past service workers for the port are still registered. In case build is run again replace the new "service-worker.js" generated in the root build directory with the one in the root of the mapapp directory. Also make sure the precached file names for "main.*.js" and "main.*.css" match the ones in the static folder produced by build, because if there have been changes in the code during development, these files will be generated with new names.
+
+Note: the service worker caches all the static dependencies of the app plus the requests/responses to the foursquare API. The google map is not cached due to heavy load on the cache.

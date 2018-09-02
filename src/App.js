@@ -54,9 +54,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.regSW();
+    if (process.env.NODE_ENV === 'production') {
+      this.regSW();
+    }
     this.resetExtraInfo();
-    console.log("mounted")
       if(window.google) {
         this.setState(() => {
           let google = window.google;
@@ -85,8 +86,7 @@ class App extends Component {
   window.addEventListener("load", () => {
   if (!navigator.serviceWorker) return;
   if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/service-worker.js')
-  .then(function() { console.log("Service Worker Registered!"); });
+  navigator.serviceWorker.register('/service-worker.js').then(function() { console.log("Service Worker Registered!"); });
   };
     })
   }
