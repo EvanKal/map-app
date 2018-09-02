@@ -6,6 +6,7 @@ import ExtraInfo from "./ExtraInfo";
 import Marker from "./Marker";
 import BurgerMenuIcon from "./BurgerMenuIcon";
 import escapeRegExp from "escape-string-regexp";
+import { Route } from "react-router-dom";
 import "./App.css";
 import "./Responsive.css";
 
@@ -53,6 +54,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.regSW();
     this.resetExtraInfo();
     console.log("mounted")
       if(window.google) {
@@ -79,6 +81,15 @@ class App extends Component {
       }
   }
 
+  regSW = () => {
+  window.addEventListener("load", () => {
+  if (!navigator.serviceWorker) return;
+  if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/service-worker.js')
+  .then(function() { console.log("Service Worker Registered!"); });
+  };
+    })
+  }
   updateQueryInApp = query => {
     this.setState({ queryInApp: query });
     this.resetExtraInfo();
@@ -303,7 +314,12 @@ class App extends Component {
     const { queryInApp } = this.state;
 
     return (
-      <div className="App">
+      <div >
+      <Route
+  exact
+  path="/"
+  render={() => (
+<div className="App">
         <ExtraInfo />
 
         <MapDisplay
@@ -327,6 +343,9 @@ class App extends Component {
           updateQueryInApp={this.updateQueryInApp}
           google={this.state.google}
         />
+        </div>
+      )}
+      />
       </div>
     );
   }
