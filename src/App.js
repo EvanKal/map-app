@@ -54,42 +54,88 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (process.env.NODE_ENV === 'production') {
+    let mapOverlay = this.mapOverlay;
+    let extraInfoOverlay = this.extraInfoOverlay;
+
+    if (process.env.NODE_ENV === "production") {
       this.regSW();
     }
     this.resetExtraInfo();
-      if(window.google) {
-        this.setState(() => {
-          let google = window.google;
-          let map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 37.975543, lng: 23.734851 },
-            zoom: 8,
-            mapTypeControlOptions: {
-              mapTypeIds: [
-                "roadmap",
-                "satellite",
-                "hybrid",
-                "terrain",
-                "styled_map"
-              ]
-            }
-          });
-          return { google: google, map: map, gotGoogle: true };
-        });
-      } else {
-          this.mapOverlay();
-          this.extraInfoOverlay();
-      }
+
+    // The google maps library is loaded asyncronously through a script element as pointed out in the API's documentation.
+    // Everything in the app starts running after the google object has been loaded, so the callback function of the API request
+    // checks if everything is ok and then kicks off the rendering of the rest of the content by changing the state of the current component,
+    // which consecutively passes the new object down to the rest of the components.
+
+    window.getGoogle = this.getGoogle;
+    this.createScriptTag(
+      `https://maps.googleapis.com/maps/api/js?key=AIzaSyDGq10MXHRFvjFmCRXKANM5yMZk6dXaGAo&libraries=geometry,places&callback=getGoogle`
+    );
+
+    // Checks for authentication errors and adjusts the page accordingly
+    window.gm_authFailure = function() {
+      console.log("Invalid Key!");
+      document.querySelector("#map").innerHTML = "";
+      mapOverlay();
+      extraInfoOverlay();
+    };
   }
 
-  regSW = () => {
-  window.addEventListener("load", () => {
-  if (!navigator.serviceWorker) return;
-  if (navigator.serviceWorker) {
-  navigator.serviceWorker.register('/service-worker.js').then(function() { console.log("Service Worker Registered!"); });
+  getGoogle = () => {
+    let mapOverlay = this.mapOverlay;
+    let extraInfoOverlay = this.extraInfoOverlay;
+
+    if (window.google) {
+      this.setState(() => {
+        let google = window.google;
+        let map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 37.975543, lng: 23.734851 },
+          zoom: 8,
+          mapTypeControlOptions: {
+            mapTypeIds: [
+              "roadmap",
+              "satellite",
+              "hybrid",
+              "terrain",
+              "styled_map"
+            ]
+          }
+        });
+        return { google: google, map: map, gotGoogle: true };
+      });
+    } else {
+      mapOverlay();
+      extraInfoOverlay();
+    }
   };
-    })
-  }
+
+  createScriptTag = url => {
+    let mapOverlay = this.mapOverlay;
+    let extraInfoOverlay = this.extraInfoOverlay;
+
+    let tag = document.createElement("script");
+    tag.async = true;
+    tag.src = url;
+
+    // Listens for loading errors and adjusts the page accordingly
+    tag.onerror = function() {
+      mapOverlay();
+      extraInfoOverlay();
+    };
+
+    document.body.appendChild(tag);
+  };
+
+  regSW = () => {
+    window.addEventListener("load", () => {
+      if (!navigator.serviceWorker) return;
+      if (navigator.serviceWorker) {
+        navigator.serviceWorker.register("/service-worker.js").then(function() {
+          console.log("Service Worker Registered!");
+        });
+      }
+    });
+  };
   updateQueryInApp = query => {
     this.setState({ queryInApp: query });
     this.resetExtraInfo();
@@ -314,38 +360,38 @@ class App extends Component {
     const { queryInApp } = this.state;
 
     return (
-      <div >
-      <Route
-  exact
-  path="/"
-  render={() => (
-<div className="App">
-        <ExtraInfo />
+      <div>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div className="App">
+              <ExtraInfo />
 
-        <MapDisplay
-          markersToDisplay={this.placesRendered(queryInApp)}
-          gotGoogle={this.state.gotGoogle}
-          google={this.state.google}
-          map={this.state.map}
+              <MapDisplay
+                markersToDisplay={this.placesRendered(queryInApp)}
+                gotGoogle={this.state.gotGoogle}
+                google={this.state.google}
+                map={this.state.map}
+              />
+
+              <Marker
+                markersToDisplay={this.placesRendered(queryInApp)}
+                requestPlaceDetails={this.requestPlaceDetails}
+                google={this.state.google}
+                map={this.state.map}
+              />
+
+              <BurgerMenuIcon />
+
+              <ContentsList
+                markersInList={this.placesRendered(queryInApp)}
+                updateQueryInApp={this.updateQueryInApp}
+                google={this.state.google}
+              />
+            </div>
+          )}
         />
-
-        <Marker
-          markersToDisplay={this.placesRendered(queryInApp)}
-          requestPlaceDetails={this.requestPlaceDetails}
-          google={this.state.google}
-          map={this.state.map}
-        />
-
-        <BurgerMenuIcon />
-
-        <ContentsList
-          markersInList={this.placesRendered(queryInApp)}
-          updateQueryInApp={this.updateQueryInApp}
-          google={this.state.google}
-        />
-        </div>
-      )}
-      />
       </div>
     );
   }
