@@ -130,6 +130,7 @@ class ContentsList extends Component {
         <input
           className="search-places"
           aria-controls="ariaMarkersInList"
+          aria-label="Search through the available places"
           type="text"
           placeholder="Search by name"
           value={query}
@@ -156,7 +157,7 @@ class ContentsList extends Component {
                     onClick={event => this.clickHandler(event)}
                     style={{ cursor: "pointer" }}
                     tabIndex="0"
-                    role="option"
+                    role="button"
                     aria-selected="false"
                     onKeyUp={event => this.keyPressHandler(event)}
                   >
