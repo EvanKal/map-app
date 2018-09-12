@@ -81,6 +81,8 @@ class App extends Component {
     };
   }
 
+  //Checks whether google object has been apropriately loaded and updates the component's state, so that google and the map instance get passed down
+  //to the rest of the components.
   getGoogle = () => {
     let mapOverlay = this.mapOverlay;
     let extraInfoOverlay = this.extraInfoOverlay;
@@ -109,6 +111,7 @@ class App extends Component {
     }
   };
 
+  //Creates a script tag in order to load the google library
   createScriptTag = url => {
     let mapOverlay = this.mapOverlay;
     let extraInfoOverlay = this.extraInfoOverlay;
@@ -126,6 +129,7 @@ class App extends Component {
     document.body.appendChild(tag);
   };
 
+  //Registers the service worker. This function gets called in componentDidMount and only in production mode
   regSW = () => {
     window.addEventListener("load", () => {
       if (!navigator.serviceWorker) return;
@@ -136,11 +140,13 @@ class App extends Component {
       }
     });
   };
+
   updateQueryInApp = query => {
     this.setState({ queryInApp: query });
     this.resetExtraInfo();
   };
 
+  //Filters the places that are going to be displayed according to the input query
   placesRendered = query => {
     let placesArray = [];
     if (query) {
@@ -166,6 +172,7 @@ class App extends Component {
       });
   };
 
+  //Creates an overlay over the map container when error occur
   mapOverlay = () => {
     let mapOverlay = document.createElement("div");
     let mapOverlayText = document.createElement("p");
@@ -178,6 +185,7 @@ class App extends Component {
     document.querySelector("#map").appendChild(mapOverlay);
   };
 
+  //Creates an overlay over the extra info div when error occur
   extraInfoOverlay = () => {
     this.resetExtraInfo();
     let extraInfoOverlay = document.querySelector(".extra-info-overlay");
@@ -187,6 +195,7 @@ class App extends Component {
     ).innerHTML = `Network Error! Nothing to display...`;
   };
 
+  //Clears the contents of the extra info section
   resetExtraInfo = () => {
     document.querySelector(".place-name").innerHTML = "";
     document.querySelector(".place-name").removeAttribute("tabindex");
@@ -217,6 +226,7 @@ class App extends Component {
       .classList.remove("hide-overlay");
   };
 
+  //Fills the extra info section with information about the selected place
   fillExtraInfo = place => {
     if (place) {
       let createHoursTable = array => {

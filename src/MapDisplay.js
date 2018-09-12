@@ -62,6 +62,8 @@ class MapDisplay extends Component {
   };
 
   initMap = res => {
+
+// Options for the custom styled map
     var styledMapType = new this.props.google.maps.StyledMapType(
       [
         {

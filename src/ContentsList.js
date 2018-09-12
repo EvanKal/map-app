@@ -18,6 +18,7 @@ class ContentsList extends Component {
     this.setState({ query: "" });
   };
 
+//Handles what happens when a list item is clicked
   clickHandler = event => {
     let text = event.target.textContent;
     let str = `[title='${text}']`;
@@ -25,6 +26,8 @@ class ContentsList extends Component {
     markerToActivate.dispatchEvent(new Event("click"));
   };
 
+//Handles what happens when a list item is selected when "enter" button is hit
+//Sets the focus to the extra info section
   keyPressHandler = event => {
     if (event.keyCode === 13) {
       let text1 = event.target.querySelector("p").textContent;
@@ -43,6 +46,9 @@ class ContentsList extends Component {
     }
   };
 
+//This function handles the focus lock inside the Contents list section by tracking the number of focusable list items and delegates
+// the aria-selected attribute utilizing a counting pattern that keeps track of the hits of the tab button. That solution was implemented because
+// document.activeElement doesn't work on non focusable elements
   getFocusable = () => {
     let possibleElemsStr = `[tabindex="0"], [type="text"]`;
     let cont = document.querySelector(".contents-list");
