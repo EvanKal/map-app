@@ -1,4 +1,4 @@
-let staticCacheName = "athenianCache12";
+let staticCacheName = "athenianCache11";
 
 self.addEventListener("install", function(event) {
   event.waitUntil(
@@ -8,7 +8,7 @@ self.addEventListener("install", function(event) {
         "/asset-manifest.json",
         "/manifest.json",
         "/static/css/main.3ee2832a.css",
-        "/static/js/main.a98ac9fc.js",
+        "/static/js/main.077e3fde.js",
         "/static/media/FoursquareLogo.dec86181.png"
       ]);
     })
