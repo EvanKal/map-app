@@ -4,11 +4,15 @@ This is a single page app that displays information about my favourite
 places to eat and grab a snack in Athens. The app has been devoloped using REACT.
 
 ## Install
-
+In Dev mode
 * Install all project dependencies with `npm install`
   ** All dependencies will be automatically installed through the package.json file
 * Start the development server with `npm start`
-* View the production version of the app by serving the files in the build directory to your browser. This is where the service worker may be tested.
+
+In production mode
+* View the production version of the app by serving the files inside the build directory to your browser. This is where the service worker may be tested.
+  ** To do that you can use a simple local server like the "Web server for Chrome" extension, available at the chrome store.
+* Viewing in an incognito window is recommended and make sure all previous service workers installed for your serving port are unregistered.
 
 ## Third Party API
 
